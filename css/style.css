@@ -1,0 +1,514 @@
+
+/*
+Design by Free CSS Templates
+http://www.freecsstemplates.org
+Released for free under a Creative Commons Attribution 2.5 License
+*/
+
+body {
+	margin: 0;
+	padding: 0;
+	background: #002236 url(../images/img01.gif) repeat-x;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	color: #181B20;
+}
+
+h1, h2, h3 {
+	margin: 0;
+	padding: 0;
+	text-transform: uppercase;
+	font-family: 'Oswald', sans-serif;
+	font-weight: normal;
+	color: #2483A6;
+}
+
+h1 {
+	font-size: 2em;
+}
+
+h2 {
+	font-size: 2.4em;
+}
+
+h3 {
+	font-size: 1.6em;
+}
+
+p, ul, ol {
+	margin-top: 0;
+	line-height: 180%;
+}
+
+ul, ol {
+}
+
+a {
+	text-decoration: none;
+	color: #2483A6;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+img.border {
+	border: 6px solid #EEE7DF;
+}
+
+img.alignleft {
+	float: left;
+	margin-right: 25px;
+}
+
+img.alignright {
+	float: right;
+}
+
+img.aligncenter {
+	margin: 0px auto;
+}
+
+#wrapper {
+	margin: 0 auto;
+	padding: 0;
+	background: url(../images/img03.gif) no-repeat center top;
+}
+
+/* Header */
+
+#header-wrapper {
+	height: 167px;
+	background: url(../images/img02.gif) no-repeat center top;
+}
+
+#header {
+	width: 960px;
+	height: 167px;
+	margin: 0 auto;
+}
+
+/* Logo */
+
+#logo {
+	width: 980px;
+	margin: 0px auto;
+	padding: 40px 0px 0px 0px;
+	color: #FFFFFF;
+}
+
+#logo h1, #logo p {
+	display: block;
+	margin: 0;
+	padding: 0;
+}
+
+#logo h1 {
+	margin: 0px;
+	letter-spacing: -1px;
+	text-align: center;
+	text-transform: uppercase;
+	font-size: 54px;
+	font-weight: bold;
+	color: #FFFFFF;
+}
+
+#logo h1 a {
+	color: #FFFFFF;
+}
+
+#logo p {
+	margin-top: -10px;
+	text-align: center;
+	text-transform: uppercase;
+	font-family: 'Arvo', serif;
+	font-size: 20px;
+}
+
+#logo a {
+	border: none;
+	background: none;
+	text-decoration: none;
+	color: #FFFFFF;
+}
+
+/* Search */
+
+#search {
+	float: right;
+	width: 280px;
+	height: 100px;
+	padding: 0;
+}
+
+#search form {
+	height: 41px;
+	margin: 0;
+	padding: 60px 0 0 30px;
+}
+
+#search fieldset {
+	margin: 0;
+	padding: 0;
+	border: none;
+}
+
+#search-text {
+	width: 195px;
+	padding: 6px 10px;
+	border: none;
+	background: #FFFFFF;
+	text-transform: lowercase;
+	font: normal 11px Arial, Helvetica, sans-serif;
+	color: #7F7F81;
+}
+
+#search-submit {
+	display: none;
+}
+
+/* Menu */
+
+#menu-wrapper {
+	background: url(../images/img03.gif) no-repeat center top;
+	height: 58px;
+}
+
+#menu {
+	width: 940px;
+	height: 58px;
+	margin: 0px auto;
+	padding: 0px 20px 0px 20px;
+}
+
+#menu ul {
+	margin: 0;
+	padding: 0px 0px 0px 0px;
+	list-style: none;
+	line-height: normal;
+}
+
+#menu li {
+	float: left;
+}
+
+#menu a {
+	display: block;
+	float: left;
+	height: 56px;
+	margin: 0px;
+	padding: 0px 30px 0px 30px;
+	line-height: 56px;
+	letter-spacing: 1px;
+	text-decoration: none;
+	text-transform: uppercase;
+	font-family: 'Oswald', sans-serif;
+	font-size: 14px;
+	font-weight: normal;
+	color: #B5B5B5;
+	border: none;
+}
+
+#menu .current_page_item a {
+	color: #FFFFFF;
+}
+
+#menu a:hover {
+	text-decoration: none;
+	color: #FFFFFF;
+}
+
+/* Page */
+
+#page {
+	background: url(../images/img05.gif) repeat-y center top;
+}
+
+#page-content {
+	width: 920px;
+	margin: 0px auto;
+}
+
+/* Content */
+
+
+
+.post {
+	clear: both;
+	padding-bottom: 10px;
+}
+
+.post .title {
+	padding-top: 10px;
+	letter-spacing: -2px;
+}
+
+.post .title a {
+	color: #2483A6;
+	border: none;
+}
+
+.post .meta {
+	padding-bottom: 10px;
+	text-align: left;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	font-style: italic;
+}
+
+.post .meta a {
+}
+
+.post .entry {
+	text-align: justify;
+	margin-bottom: 25px;
+	padding: 10px 0px 0px 0px;
+}
+
+.links {
+	display: block;
+	width: 96px;
+	padding: 2px 0px 2px 0px;
+	background: #A53602;
+	text-align: center;
+	text-transform: uppercase;
+	font-size: 10px;
+	color: #FFFFFF;
+}
+
+
+/* Calendar */
+
+#calendar {
+}
+
+#calendar_wrap {
+	padding: 20px;
+}
+
+#calendar table {
+	width: 100%;
+}
+
+#calendar tbody td {
+	text-align: center;
+}
+
+#calendar #next {
+	text-align: right;
+}
+
+/* Footer */
+
+#footer {
+	width: 960px;
+	height: 55px;
+	margin: 0px auto 40px auto;
+	background: url(../images/img07.gif) no-repeat center top;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+#footer p {
+	margin: 0;
+	padding-top: 18px;
+	line-height: normal;
+	text-align: center;
+	color: #576475;
+}
+
+#footer a {
+	color: #576475;
+}
+
+/*  Clases propias   */
+
+.error {
+    background-color: #B3B4BD;
+    color: #A53602;
+}
+
+.tooltip {
+    display:none;
+    background:transparent url(../images/black_arrow.png);
+    font-size:12px;
+    height:70px;
+    width:160px;
+    padding:25px;
+    color:#eee;
+}
+
+#calendar {
+    width: 610px;
+    margin: 0 auto;
+}
+
+/*
+    Control Panel
+*/
+
+
+.boton {
+	-moz-box-shadow:inset 0px 1px 0px 0px #bbdaf7;
+	-webkit-box-shadow:inset 0px 1px 0px 0px #bbdaf7;
+	box-shadow:inset 0px 1px 0px 0px #bbdaf7;
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #79bbff), color-stop(1, #378de5) );
+	background:-moz-linear-gradient( center top, #79bbff 5%, #378de5 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#79bbff', endColorstr='#378de5');
+	background-color:#79bbff;
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+	border-radius:6px;
+	border:1px solid #84bbf3;
+	color:#ffffff;
+	font-family:arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:6px 24px;
+	text-decoration:none;
+	text-shadow:1px 1px 0px #528ecc;
+}.boton:hover {
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #378de5), color-stop(1, #79bbff) );
+	background:-moz-linear-gradient( center top, #378de5 5%, #79bbff 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#378de5', endColorstr='#79bbff');
+	background-color:#378de5;
+}.boton:active {
+	position:relative;
+	top:1px;
+}
+
+.boton20{
+    height:20px;
+    width:20px;
+    padding:0 0 0 3px;
+    margin: 0 1px 0 0;
+    display:inline-block;
+	
+}
+
+
+.boton200 {
+    height:200px;
+    width:200px;
+    background:transparent url(../images/boton-200.png);
+}
+
+.boton200:hover {
+    background:transparent url(../images/boton-200-over.png);
+    text-decoration: none;
+}
+
+.boton200:active {
+    background:transparent url(../images/boton-200-click.png);
+}
+
+.linkMenu {
+    text-align:center;
+}
+
+.linkMenu:hover {
+    text-decoration: none
+}
+
+/*
+    Formularios
+*/
+
+.frm-text {
+	border: 1px solid #aaaaaa;
+	background: no-repeat #fcfdfd;
+	font-family: Arial;
+	font-style: normal;
+	font-size: 13px;
+	color: #454743;
+}
+
+.frm-label {
+	font-family: Arial;
+	font-style: bold;
+	font-size: 14px;
+	color: #2483A6;
+}
+
+.frm label{
+	font-family: Arial;
+	font-style: bold;
+	font-size: 14px;
+	color: #2483A6;
+}
+
+.frm input{
+        border: 1px solid #aaaaaa;
+	background: no-repeat #fcfdfd;
+	font-family: Arial;
+	font-style: normal;
+	font-size: 13px;
+	color: #454743;
+}
+
+.frm-non{
+    background:#ffffff;
+}
+
+.frm-par{
+    background:#dfdfdf;
+}
+
+.frm table{
+    border-radius: 10px;
+    border:#6CF thin solid;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-spacing: 0;
+    padding:5px 5px 5px 5px;
+    margin:5px 5px 5px 5px;
+}
+
+.frm td{
+    padding:5px 5px 5px 5px;
+    margin:5px 5px 5px 5px;
+}
+
+.frm table tr:last-child td:first-child {
+-moz-border-radius-bottomleft:10px;
+-webkit-border-bottom-left-radius:10px;
+border-bottom-left-radius:10px}
+
+.frm table tr:last-child td:last-child {
+-moz-border-radius-bottomright:10px;
+-webkit-border-bottom-right-radius:10px;
+border-bottom-right-radius:10px}
+
+/*
+    Tablas
+*/
+
+#reporte{
+font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+font-size: 12px;
+width: 100%;
+text-align: left;
+border-collapse: collapse;
+margin: 20px;
+}
+
+#reporte th {
+font-size: 13px;
+font-weight: normal;
+background: #B9C9FE;
+border-top: 4px solid #AABCFE;
+border-bottom: 1px solid white;
+color: #039;
+padding: 8px;
+}
+
+#reporte tr:hover td {
+background: #D0DAFD;
+color: #339;
+}
+#reporte td {
+background: #E8EDFF;
+border-bottom: 1px solid white;
+color: #669;
+border-top: 1px solid transparent;
+padding: 8px;
+}

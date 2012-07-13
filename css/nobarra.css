@@ -1,0 +1,16 @@
+#page-bgtop {
+	background: url(../images/img04-2.gif) no-repeat center top;
+}
+
+#page-bgbtm {
+	overflow: hidden;
+	padding: 40px 30px 0px 30px;
+	background: url(../images/img06-2.gif) no-repeat center bottom;
+}
+
+
+#content {
+	float: right;
+	width: 940px;
+	padding: 0px 0px 0px 0px;
+}
