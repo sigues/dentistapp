@@ -704,6 +704,11 @@ class Personal extends CI_Controller {
 	$this->load->view("template",$data);
     }
 
+    public function pagos(){
+        $data["seccion"]="personal";
+	$this->load->view("template",$data);
+    }
+
 
     /*
      * AJAX

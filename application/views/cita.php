@@ -21,6 +21,10 @@
                           $('#respuesta_<?=$idcita?>').html("<center>La observaci\u00f3n se guard\u00f3 satisfactoriamente</center>");
                           var respuesta = pideAjax("<?=base_url()?>index.php/personal/cargaObservaciones/<?=$idcita?>");
                           $("#observaciones_<?=$idcita?>").html(respuesta);
+                          if($("#estado_<?=$idcita?>").val() == "realizada"){
+                              $("#estado_<?=$idcita?>").attr("disabled","disabled");
+                              $("#registraPago_<?=$idcita?>").css("display","block");
+                          }
                       } else {
                         /*for (var key in data) {       //se deja comentado para cuando pongamos la opción de postponer cita
                             if (data.hasOwnProperty(key)) {
@@ -80,6 +84,9 @@ $nombrePaciente = (isset($cita->nombrePaciente)) ? $cita->nombrePaciente." ".$ci
                 $disabled = "";
                 if($cita->estado == "realizada"){
                     $disabled = " disabled = 'disabled' ";
+                    $display = "block";
+                }else{
+                    $display = "none";
                 }
             ?>
             <td><select name="estado_<?=$idcita?>" id = "estado_<?=$idcita?>" <?=$disabled?>>
@@ -92,6 +99,7 @@ $nombrePaciente = (isset($cita->nombrePaciente)) ? $cita->nombrePaciente." ".$ci
                         <option value="<?=$estado?>" <?=$selected?>><?=$estado?></option>
                     <? } ?>
                 </select>
+                <a href="<?=base_url()."index.php/personal/pagos/".$idcita?>"><button class="boton" style="display:<?=$display?>" id="registraPago_<?=$idcita?>">Registrar Pago</button></a>
             </td>
         </tr>
         <tr class="frm-par">
