@@ -15,6 +15,7 @@
     <script>
         $(document).ready(function() {
             $("#editar_<?=$cita->idcita?>").click( function(){
+                $("#accordion").accordion({ header: "h3" });
                 $("#tabs").tabs("add","<?=base_url()."index.php/personal/tabCita/".$cita->idcita?>",
                 "<?=$cita->idcita." - ".$cita->nombreProcedimiento." (".$cita->fecha.")"?>",<?=$cita->idcita?>);
             });
@@ -23,7 +24,7 @@
         <div>
                 <h3><a href="#"><?=$cita->nombreProcedimiento?> <?=$cita->fecha?> <?=$cita->horaInicio?> (<?=$cita->estado?>)</a></h3>
                 <div>
-                    <span id="editar_<?=$cita->idcita?>">Editar</span><br><br>
+                    <span id="editar_<?=$cita->idcita?>">Editar</span><br /><br /><br /><br />
                     Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.
                 </div>
         </div>

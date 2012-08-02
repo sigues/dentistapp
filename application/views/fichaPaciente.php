@@ -2,13 +2,12 @@
     $(document).ready(function() {
 
 	$(function() {
-            $('#tabs').tabs({
+            $("#accordion").accordion({ header: "h3" });
+            $('#tabs').tabs(/*{
                 add: function(event, ui) {
                     $('#tabs').tabs('select', '#' + ui.panel.id);
                     $("#accordion").accordion({ header: "h3" });
-                }});
-            $("#accordion").accordion({ header: "h3" });
-		
+                }}*/);
 	});
     });
 	</script>
@@ -28,7 +27,7 @@
     $data["idpaciente"]=$idpaciente;
     $data["paciente"]=$paciente;
     $data["citas"]=$citas;
-    $data["observaciones"]=$observaciones;
+    $data["observaciones"]=@$observaciones;
 ?>
             </ul>
             <div id="tabs-1"><?=$this->load->view('expediente',$data)?></div>
