@@ -48,8 +48,7 @@ if(isset($citas)){
             $cita = $citaArr;
         }
     } 
-} 
-
+}   
 $nombrePaciente = (isset($cita->nombrePaciente)) ? $cita->nombrePaciente." ".$cita->apellidoPaterno." ".$cita->apellidoMaterno : $paciente->nombrePaciente." ".$paciente->apellidoPaterno." ".$paciente->apellidoMaterno;
 
 ?>
@@ -80,13 +79,9 @@ $nombrePaciente = (isset($cita->nombrePaciente)) ? $cita->nombrePaciente." ".$ci
         </tr>
         <tr class="frm-non">
             <td><label for="estado" class="frm-label" />Estado:</td>
-            <?
-                $disabled = "";
+            <?php
                 if($cita->estado == "realizada"){
                     $disabled = " disabled = 'disabled' ";
-                    $display = "block";
-                }else{
-                    $display = "none";
                 }
             ?>
             <td><select name="estado_<?=$idcita?>" id = "estado_<?=$idcita?>" <?=$disabled?>>
@@ -99,10 +94,42 @@ $nombrePaciente = (isset($cita->nombrePaciente)) ? $cita->nombrePaciente." ".$ci
                         <option value="<?=$estado?>" <?=$selected?>><?=$estado?></option>
                     <? } ?>
                 </select>
-                <a href="<?=base_url()."index.php/personal/pagos/".$idcita?>"><button class="boton" style="display:<?=$display?>" id="registraPago_<?=$idcita?>">Registrar Pago</button></a>
+                
             </td>
         </tr>
         <tr class="frm-par">
+            <td><label for="estado" class="frm-label" />Estado Financiero:</td>
+            <?
+                $disabled = "";
+
+                if($cita->estadoFinanciero == "pagado"){
+                    $disabled = " disabled = 'disabled' ";
+                }
+
+                if($cita->estadoFinanciero != "pagado" && $cita->estado == "realizada"){
+                    $display = "block";
+                }else{
+                    $display = "none";
+                }
+            ?>
+            <td><!--<select name="estadoFinanciero_<?=$idcita?>" id = "estadoFinanciero_<?=$idcita?>" <?=$disabled?>>
+                    <? foreach($estadosFinancieros as $estado){
+                        $selected = "";
+                        if($estado == $cita->estadoFinanciero){
+                            $selected = "selected = 'selected' ";
+                        }
+                        ?>
+                        <option value="<?=$estado?>" <?=$selected?>><?=$estado?></option>
+                    <? } ?>
+                </select>!-->
+                <?php
+                    $pendiente = $cita->costo - $cita->cantidad;
+                ?>
+                <?=$cita->estadoFinanciero?> - ($<?=$pendiente?>)
+                <a href="<?=base_url()."index.php/personal/pagos/".$idcita?>"><button class="boton" style="display:<?=$display?>" id="registraPago_<?=$idcita?>">Registrar Pago</button></a>
+            </td>
+        </tr>
+        <tr class="frm-non">
             <td><label for="observaciones" class="frm-label" />Observaciones:</td>
             <td><textarea rows="7" cols="50" id="observacion_<?=$idcita?>" nombre="observacion_<?=$idcita?>"></textarea></td>
         </tr>

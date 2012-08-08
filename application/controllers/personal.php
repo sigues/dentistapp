@@ -397,15 +397,22 @@ class Personal extends CI_Controller {
             $data["paciente"]=$pac;
         }
 
+        $this->db->select_sum("pago.cantidad");
         $this->db->select("cita.*");
         $this->db->select("procedimiento.nombre nombreProcedimiento");
         $this->db->from("cita");
         $this->db->join("procedimiento","cita.procedimiento_idprocedimiento = procedimiento.idprocedimiento");
         $this->db->join("empleado","empleado.idempleado=cita.empleado_idempleado");
+        $this->db->join("pago","cita.idcita = pago.cita_idcita","left");
         $this->db->where("cita.paciente_idpaciente",$data["paciente"]->idpaciente);
+        $this->db->group_by("cita.idcita");
         $data["citas"] = $this->db->get()->result();
+        //var_dump($data["citas"]);
+        //echo $this->db->last_query();die();
         $data["idpaciente"] = $data["paciente"]->idpaciente;
-                $row = $this->db->query("SHOW COLUMNS FROM cita LIKE 'estado'")->row()->Type;
+
+        /* valores enum de estado */
+        $row = $this->db->query("SHOW COLUMNS FROM cita LIKE 'estado'")->row()->Type;
         $regex = "/'(.*?)'/";
         preg_match_all( $regex , $row, $enum_array );
         $enum_fields = $enum_array[1];
@@ -414,11 +421,22 @@ class Personal extends CI_Controller {
             $enums[$value] = $value;
         }
 
+        /* valores enum de estado */
+        $row = $this->db->query("SHOW COLUMNS FROM cita LIKE 'estadoFinanciero'")->row()->Type;
+        $regex = "/'(.*?)'/";
+        preg_match_all( $regex , $row, $enum_array );
+        $enum_fields = $enum_array[1];
+        foreach ($enum_fields as $key=>$value)
+        {
+            $enumsFinanciero[$value] = $value;
+        }
+
         $this->db->from("observacion");
         $this->db->join("empleado", "observacion.empleado_idempleado = empleado.idempleado");
         $this->db->where("observacion.cita_idcita",$data["idcita"]);
         $data["observaciones"] = $this->db->get()->result();
         $data["estados"] = $enums;
+        $data["estadosFinancieros"] = $enumsFinanciero;
         $data["titulo"][0]="Ficha del paciente Paciente Ejemplo";
         $data["subtitulo"][0]="En la pestaña de Cita puede ver la cita actual y en la de expediente las citas anteriores e información sobre el paciente";
         $data["contenido"][0] = $this->load->view('fichaPaciente',$data,TRUE);
@@ -704,8 +722,29 @@ class Personal extends CI_Controller {
 	$this->load->view("template",$data);
     }
 
+    /*
+     * PAGOS
+     *
+     */
+
     public function pagos(){
-        $data["seccion"]="personal";
+        $data["seccion"]= "personal";
+        $data["idcita"] = $this->uri->segment(3);
+        $this->db->select("cita.*");
+        $this->db->select("procedimiento.nombre nombreProcedimiento");
+        $this->db->from("cita");
+        $this->db->join("procedimiento","cita.procedimiento_idprocedimiento = procedimiento.idprocedimiento");
+        $this->db->join("empleado","empleado.idempleado=cita.empleado_idempleado");
+        $this->db->join("paciente","paciente.idpaciente=cita.paciente_idpaciente");
+        $this->db->where("cita.idcita",$data["idcita"]);
+        $data["cita"] = $this->db->get()->result();
+
+        $data["titulo"][0] = "Sección de pagos";
+        $data["subtitulo"][0] = "en construcción";
+        $data["contenido"][0] = "Esta sección aún se encuentra en construcción";
+
+
+
 	$this->load->view("template",$data);
     }
 
