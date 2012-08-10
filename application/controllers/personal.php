@@ -730,22 +730,29 @@ class Personal extends CI_Controller {
     public function pagos(){
         $data["seccion"]= "personal";
         $data["idcita"] = $this->uri->segment(3);
+        $this->db->select_sum("pago.cantidad");
         $this->db->select("cita.*");
         $this->db->select("procedimiento.nombre nombreProcedimiento");
         $this->db->from("cita");
         $this->db->join("procedimiento","cita.procedimiento_idprocedimiento = procedimiento.idprocedimiento");
         $this->db->join("empleado","empleado.idempleado=cita.empleado_idempleado");
-        $this->db->join("paciente","paciente.idpaciente=cita.paciente_idpaciente");
+        $this->db->join("pago","cita.idcita = pago.cita_idcita","left");
         $this->db->where("cita.idcita",$data["idcita"]);
+        $this->db->group_by("cita.idcita");
+
         $data["cita"] = $this->db->get()->result();
+        $data["titulo"][0] = "Registro de pagos";
+        $data["subtitulo"][0] = "Utilize esta forma para registrar los pagos de los pacientes";
+        $data["contenido"][0] = $this->load->view("altaPagos",$data,TRUE);
 
-        $data["titulo"][0] = "Sección de pagos";
-        $data["subtitulo"][0] = "en construcción";
-        $data["contenido"][0] = "Esta sección aún se encuentra en construcción";
+        $data["titulo"][1] = "Historial de pagos";
+        $data["subtitulo"][1] = "Pagos realizados por el paciente";
+        $data["contenido"][1] = "<div id='listadoPagos'></div>";
+        $this->load->view("template",$data);
+    }
 
-
-
-	$this->load->view("template",$data);
+    public function listadoPagos(){
+        
     }
 
 

@@ -112,21 +112,20 @@ $nombrePaciente = (isset($cita->nombrePaciente)) ? $cita->nombrePaciente." ".$ci
                     $display = "none";
                 }
             ?>
-            <td><!--<select name="estadoFinanciero_<?=$idcita?>" id = "estadoFinanciero_<?=$idcita?>" <?=$disabled?>>
-                    <? foreach($estadosFinancieros as $estado){
-                        $selected = "";
-                        if($estado == $cita->estadoFinanciero){
-                            $selected = "selected = 'selected' ";
-                        }
-                        ?>
-                        <option value="<?=$estado?>" <?=$selected?>><?=$estado?></option>
-                    <? } ?>
-                </select>!-->
-                <?php
+            <td><?php
                     $pendiente = $cita->costo - $cita->cantidad;
                 ?>
-                <?=$cita->estadoFinanciero?> - ($<?=$pendiente?>)
-                <a href="<?=base_url()."index.php/personal/pagos/".$idcita?>"><button class="boton" style="display:<?=$display?>" id="registraPago_<?=$idcita?>">Registrar Pago</button></a>
+                <?=ucfirst($cita->estadoFinanciero)?>
+                <? if($cita->estadoFinanciero == "pendiente" || $cita->estadoFinanciero == "en proceso"){ ?>
+                ($<?=$pendiente?>)
+                <? }?>
+                <button class="boton"
+                        style="display:<?=$display?>"
+                        id="registraPago_<?=$idcita?>"
+                        onClick='window.location = "<?=base_url()."index.php/personal/pagos/".$idcita?>";'>
+                    Registrar Pago
+                </button>
+
             </td>
         </tr>
         <tr class="frm-non">
