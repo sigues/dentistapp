@@ -5,7 +5,8 @@
     	//$('#fechaNacimiento').datepicker({ dateFormat: "mm/dd/yy" });
         var idCita = $("#idCita").val();
     	$.ajax({
-                  url : 'listadoPagos',
+                  type : "POST",
+                  url : '../listadoPagos',
                   data : {
                       idCita : idCita
                   },

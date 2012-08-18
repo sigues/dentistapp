@@ -1,7 +1,8 @@
 <script src="<?=base_url()?>js/lib/altaPagos.js"></script>
 
 <?php
-    $restante = $cita->costo - $cita->cantidad;
+//var_dump($cita);
+    $restante = $cita[0]->costo - $cita[0]->cantidad;
 ?>
 
 <form action="" class="frm" id="altaPagos"  method="post" name="altaPagos" onsubmit="return false;" >
@@ -16,9 +17,11 @@
         </tr>
         <tr class="frm-non">
             <td>
-                <input type="hidden" id="idCita" name="idCita" value="<?=$cita->idcita?>">
+                <input type="hidden" id="idCita" name="idCita" value="<?=$cita[0]->idcita?>" />
             </td>
-            <td><button class="boton" id="guardarPago">Guardar</button></td>
+            <td>
+                <button class="boton" id="guardarPago">Guardar</button>
+            </td>
         </tr>
         <tr class="frm-non">
             <td colspan="2">

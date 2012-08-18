@@ -752,7 +752,22 @@ class Personal extends CI_Controller {
     }
 
     public function listadoPagos(){
-        
+        $cita = (isset($_POST["idCita"]))?$_POST["idCita"]:(is_numeric($this->uri->segment(3))?$this->uri->segment(3):false);
+        if($cita == false){
+            return false;
+        } else {
+            $this->db->select("pago.idpago");
+            $this->db->select("pago.cantidad");
+            $this->db->select("pago.fechaHora");
+            $this->db->select("pago.referencia");
+            $this->db->select("empleado.nombre");
+            $this->db->select("empleado.apellidos");
+            $this->db->from("pago");
+            $this->db->join("empleado","pago.empleado_idempleado = empleado.idempleado");
+            $this->db->where("pago.cita_idcita",$cita);
+            $data["pagos"] = $this->db->get()->result();
+        }
+        $this->load->view("listadoPagos",$data);
     }
 
 
