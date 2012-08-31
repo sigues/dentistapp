@@ -3,13 +3,14 @@
 <?php
 //var_dump($cita);
     $restante = $cita[0]->costo - $cita[0]->cantidad;
+    
 ?>
 
 <form action="" class="frm" id="altaPagos"  method="post" name="altaPagos" onsubmit="return false;" >
     <table>
         <tr class="frm-non">
             <td><label for="cantidad" />Cantidad:</td>
-            <td>$<input type="text" name="cantidad" id="cantidad" max-cant="<?=$restante?>" /></td>
+            <td>$<input type="text" name="cantidad" id="cantidad" max-cant="<?=$restante?>" /> </ br>Restante: $<span id="restante"><?=number_format($restante,2,".",",")?></span></td>
         </tr>
         <tr class="frm-par">
             <td><label for="referencia" />Referencia:</td>

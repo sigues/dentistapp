@@ -1,20 +1,8 @@
-/**
- * @author svillegas
- */
-    $(document).ready(function() {
-    	//$('#fechaNacimiento').datepicker({ dateFormat: "mm/dd/yy" });
-        var idCita = $("#idCita").val();
-    	$.ajax({
-                  type : "POST",
-                  url : '../listadoPagos',
-                  data : {
-                      idCita : idCita
-                  },
-                  success: function(data) {
-                    $("#listadoPagos").html(data);
-                  }
-                });
-        $("#altaPagos").validate({
+$(document).ready(function() {
+    //$('#fechaNacimiento').datepicker({ dateFormat: "mm/dd/yy" });
+    var idCita = $("#idCita").val();
+
+    $("#altaPagos").validate({
             rules: {
                 cantidad: {
                         required : true,
@@ -34,7 +22,7 @@
 
 	            $.ajax({
 	              type: "POST",
-	              url: '../altaPago',
+	              url: 'altaPago',
 	              data: {
 	                cantidad : cantidad,
 	                referencia : referencia,
@@ -48,20 +36,12 @@
 	                } else {
 	                	$("#listadoPagos").html("<center><img src='/dentista/images/loading.gif' /></center>");
                                 var nuevo_restante = $("#cantidad").attr("max-cant") - cantidad;
-                                $("#cantidad").rules("add",{
-                                    max:nuevo_restante
-                                });
-                                if(nuevo_restante==0){
-                                    $("#div_alta_pago").hide("slow");
-                                }
-                                $("#restante").html(nuevo_restante);
                                 $("#cantidad").attr("max-cant",nuevo_restante);
 	                	$.ajax({
-                                      url : '../listadoPagos',
+                                      url : 'listadoPagos',
                                       data : {
                                           idCita : idCita
                                       },
-                                      type : "POST",
                                       success: function(data) {
                                         $("#listadoPagos").html(data);
                                       }
@@ -73,4 +53,4 @@
 	            });
               }
     	});
-    });
+});

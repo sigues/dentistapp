@@ -741,13 +741,30 @@ class Personal extends CI_Controller {
         $this->db->group_by("cita.idcita");
 
         $data["cita"] = $this->db->get()->result();
-        $data["titulo"][0] = "Registro de pagos";
-        $data["subtitulo"][0] = "Utilize esta forma para registrar los pagos de los pacientes";
-        $data["contenido"][0] = $this->load->view("altaPagos",$data,TRUE);
-
-        $data["titulo"][1] = "Historial de pagos";
-        $data["subtitulo"][1] = "Pagos realizados por el paciente";
-        $data["contenido"][1] = "<div id='listadoPagos'></div>";
+        $c=0;
+        if($data["cita"][0]->costo - $data["cita"][0]->cantidad > 0){
+            $data["titulo"][$c] = "Registro de pagos";
+            $data["subtitulo"][$c] = "Utilize esta forma para registrar los pagos de los pacientes";
+            $data["contenido"][$c] = $this->load->view("altaPagos",$data,TRUE);
+            $data["forma"][$c] = "div_alta_pago";
+            $c++;$js="";
+        } else {
+            $js='<script>var idCita = '.$data["idcita"].';
+            $.ajax({
+                      type : "POST",
+                      url : "../listadoPagos",
+                      data : {
+                          idCita : idCita
+                      },
+                      success: function(data) {
+                        $("#listadoPagos").html(data);
+                      }
+                    });
+            </script>';
+        }
+        $data["titulo"][$c] = "Historial de pagos";
+        $data["subtitulo"][$c] = "Pagos realizados por el paciente";
+        $data["contenido"][$c] = "<div id='listadoPagos'></div>".$js;
         $this->load->view("template",$data);
     }
 
@@ -756,6 +773,11 @@ class Personal extends CI_Controller {
         if($cita == false){
             return false;
         } else {
+            $res_cita = $this->db->get_where("cita",array("idcita"=>$cita))->result();
+            $data["costo"]=$res_cita[0]->costo;
+            $data["cita"]=$cita;
+
+            
             $this->db->select("pago.idpago");
             $this->db->select("pago.cantidad");
             $this->db->select("pago.fechaHora");
@@ -768,6 +790,21 @@ class Personal extends CI_Controller {
             $data["pagos"] = $this->db->get()->result();
         }
         $this->load->view("listadoPagos",$data);
+    }
+
+    public function altaPago(){
+        $usuario = $this->session->userdata("idempleado");
+
+        $pago = array("cantidad"=>$_POST["cantidad"],
+                    "fechaHora"=>date("Y-m-d H:i:s"),
+                    "referencia"=>$_POST["referencia"],
+                    "cita_idcita"=>$_POST["cita_idcita"],
+                    "empleado_idempleado"=>$usuario);
+        $insert = $this->db->insert("pago",$pago);
+        if($insert){
+            echo "OK";
+        }
+        return;
     }
 
 

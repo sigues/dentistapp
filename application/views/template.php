@@ -82,7 +82,7 @@ function pideAjax(vurl){
 				<div id="page-content">
 					<div id="content">
 					    <? foreach($titulo as $c=>$tit){ ?>
-						<div class="post">
+						<div class="post" <?=isset($forma[$c])?"id='".$forma[$c]."'":""?>>
 							<h2 class="title"><?=$titulo[$c]?></h2>
 							<p class="meta"><?=$subtitulo[$c]?></p>
                                                         <? if(isset($error[$c]) && $error[$c] != '') { ?>
