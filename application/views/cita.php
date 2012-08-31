@@ -118,14 +118,15 @@ $nombrePaciente = (isset($cita->nombrePaciente)) ? $cita->nombrePaciente." ".$ci
                 <?=ucfirst($cita->estadoFinanciero)?>
                 <? if($cita->estadoFinanciero == "pendiente" || $cita->estadoFinanciero == "en proceso"){ ?>
                 ($<?=$pendiente?>)
-                <? }?>
+                <? }
+                if($pendiente>0){?>
                 <button class="boton"
                         style="display:<?=$display?>"
                         id="registraPago_<?=$idcita?>"
                         onClick='window.location = "<?=base_url()."index.php/personal/pagos/".$idcita?>";'>
                     Registrar Pago
                 </button>
-
+                <? } ?>
             </td>
         </tr>
         <tr class="frm-non">
