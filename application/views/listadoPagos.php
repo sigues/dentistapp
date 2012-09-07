@@ -1,3 +1,5 @@
+<a href="<?=base_url()?>index.php/personal/cita/<?=$_POST["idCita"]?>#tabs-2">Regresar a Cita</a>
+
 <table id="reporte">
     <thead>
         <tr>

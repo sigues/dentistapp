@@ -446,6 +446,8 @@ class Personal extends CI_Controller {
 
     public function tabCita(){
         $data["idcita"]=$this->uri->segment(3);
+        
+        $this->db->select_sum("pago.cantidad");
         $this->db->select("cita.*");
         $this->db->select("procedimiento.nombre nombreProcedimiento");
         $this->db->select("paciente.nombre nombrePaciente");
@@ -453,8 +455,11 @@ class Personal extends CI_Controller {
         $this->db->from("cita");
         $this->db->join("procedimiento","cita.procedimiento_idprocedimiento = procedimiento.idprocedimiento");
         $this->db->join("empleado","empleado.idempleado=cita.empleado_idempleado");
+        $this->db->join("pago","cita.idcita = pago.cita_idcita","left");
         $this->db->join("paciente","paciente.idpaciente=cita.empleado_idempleado");
         $this->db->where("cita.idcita",$data["idcita"]);
+        $this->db->group_by("cita.idcita");
+
         $data["citas"] = $this->db->get()->result();
         
         $row = $this->db->query("SHOW COLUMNS FROM cita LIKE 'estado'")->row()->Type;
@@ -801,12 +806,46 @@ class Personal extends CI_Controller {
                     "cita_idcita"=>$_POST["cita_idcita"],
                     "empleado_idempleado"=>$usuario);
         $insert = $this->db->insert("pago",$pago);
+
+        if(($_post["cantidad"] - $_POST["restante"])==0){
+            $data = array(
+               'estadoFinanciero' => 'pagado'
+            );
+        } else {
+            $data = array(
+               'estadoFinanciero' => 'en proceso'
+            );
+        }
+
+        $this->db->where('idcita', $_POST["cita_idcita"]);
+        $this->db->update('cita', $data);
+
         if($insert){
             echo "OK";
         }
         return;
     }
 
+    /*
+     * PRODUCTOS
+     *
+     */
+
+    public function productos(){
+        $data["titulo"][0] = "<div id='tituloAltaProducto'>Alta De Productos</div>";
+	$data["subtitulo"][0] = "Desde aquí podrá agregar los productos que se pueden realizar en el hospital";
+	$data["contenido"][0] = $this->load->view('altaProductos',$data,true);
+	$data["titulo"][1] = "Reporte De Prodcutos";
+	$data["subtitulo"][1] = "Ver, Editar y Eliminar Productos";
+	$data["contenido"][1] = "<div id='listadoProductos'></div>";//$this->load->view('reporteProcedimientos',$data,true);
+        $data["seccion"]="personal";
+	$this->load->view('template',$data);
+
+    }
+
+    public function listadoProductos(){
+        echo "Listado de Productos";
+    }
 
     /*
      * AJAX

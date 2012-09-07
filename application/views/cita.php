@@ -50,7 +50,6 @@ if(isset($citas)){
     } 
 }   
 $nombrePaciente = (isset($cita->nombrePaciente)) ? $cita->nombrePaciente." ".$cita->apellidoPaterno." ".$cita->apellidoMaterno : $paciente->nombrePaciente." ".$paciente->apellidoPaterno." ".$paciente->apellidoMaterno;
-
 ?>
 <form action="" class="frm" onsubmit="return false;">
     <table>
@@ -80,6 +79,7 @@ $nombrePaciente = (isset($cita->nombrePaciente)) ? $cita->nombrePaciente." ".$ci
         <tr class="frm-non">
             <td><label for="estado" class="frm-label" />Estado:</td>
             <?php
+            $disabled = "";
                 if($cita->estado == "realizada"){
                     $disabled = " disabled = 'disabled' ";
                 }

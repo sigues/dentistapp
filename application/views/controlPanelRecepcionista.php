@@ -16,4 +16,12 @@
         <td><?=anchor(base_url().'index.php/personal/procedimientos','<div class="boton200"></div><br/>
 							    <div class="linkMenu">Organizar Procedimientos</div>')?></td>
     </tr>
+    <tr>
+        <td><?=anchor(base_url().'index.php/personal/productos','<div class="boton200"></div><br/>
+							    <div class="linkMenu">Alta de Productos</div>')?></td>
+        <td><!--<?=anchor(base_url().'index.php/personal/altaEmpleados','<div class="boton200"></div><br/>
+							    <div class="linkMenu">Alta de Empleados</div>')?>!--></td>
+        <td><!--<?=anchor(base_url().'index.php/personal/procedimientos','<div class="boton200"></div><br/>
+							    <div class="linkMenu">Organizar Procedimientos</div>')?>!--></td>
+    </tr>
 </table>

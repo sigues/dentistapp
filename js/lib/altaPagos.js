@@ -37,6 +37,7 @@
 	              url: '../altaPago',
 	              data: {
 	                cantidad : cantidad,
+                        restante : $("#cantidad").attr("max-cant"),
 	                referencia : referencia,
 	                cita_idcita : idCita
 	              },
