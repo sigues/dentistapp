@@ -1,40 +1,37 @@
 <script>
 $(document).ready(function() {
-		$('#timepicker').datepicker({ dateFormat: "dd/mm/yy" });
-$('#timepicker').datepicker({ dateFormat: "dd/mm/yy" });
-		var availableTags = [
-			"ActionScript",
-			"AppleScript",
-			"Asp",
-			"BASIC",
-			"C",
-			"C++",
-			"Clojure",
-			"COBOL",
-			"ColdFusion",
-			"Erlang",
-			"Fortran",
-			"Groovy",
-			"Haskell",
-			"Java",
-			"JavaScript",
-			"Lisp",
-			"Perl",
-			"PHP",
-			"Python",
-			"Ruby",
-			"Scala",
-			"Scheme"
-		];
-		$( "#paciente" ).autocomplete({
-			source: availableTags,
-			select: function(event, ui) {
-                            //alert('"'+<?=base_url()?>+'"'+"personal/getTratamiento/"+ui.item.value);
-                            var respuesta = pideAjax("<?=base_url()?>personal/getTratamiento/"+ui.item.value);
-                            $("#tratamientos").html(respuesta);
-			}
-		});
+        $('#timepicker').datepicker({ dateFormat: "dd/mm/yy" });
+        $( "#paciente" ).autocomplete({
+            source:"buscaPaciente",
+            select: function(event, ui) {
+                    var respuesta = pideAjax("getTratamiento/"+ui.item.value);
+                    $("#tratamientos").html(respuesta);
+                }
+        });
+
+        $("#buscarTratamiento").click(function(){
+            var tratamiento = $("#tratamiento").val();
+            if(tratamiento != ""){
+                $.ajax({
+                  type: "POST",
+                  url: 'seguimientoTratamiento',
+                  data: {
+                    paciente : $("#paciente").val(),
+                    tratamiento : $("#tratamiento").val(),
+                  },
+                  success: function(data) {
+                    $('#respuesta').html("<center>La cita se guard\u00f3 satisfactoriamente</center>");
+                  }
+                });
+            } else {
+                alert("Debe seleccionar un tratamiento v\u00e1lido");
+            }
+        });
+
 });
+
+
+
 </script>
 <form action="" method="POST" class="frm">
     <table width="500px">

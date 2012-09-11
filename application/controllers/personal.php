@@ -727,6 +727,12 @@ class Personal extends CI_Controller {
 	$this->load->view("template",$data);
     }
 
+    public function listadoTratamiento(){
+        $paciente = $_POST["paciente"];
+        $tratamiento = $_POST["tratamiento"];
+        
+    }
+
     /*
      * PAGOS
      *
