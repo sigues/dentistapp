@@ -99,14 +99,14 @@ class Personal extends CI_Controller {
     public function alta(){
         $this->load->library('form_validation');
         $tipo = $_POST["tipo"];
-		if($tipo != "editar"){
+        $correoRepetido=0;
+        if($tipo != "editar"){
             $this->form_validation->set_rules('correo', 'Correo Electrónico', 'trim|required|valid_email|is_unique[empleado.correo]');
             $this->form_validation->set_rules('contrasena', 'Contraseña', 'trim|required|md5');
         } else {
             $empleados = $this->db->get_where("empleado",array("correo"=>trim($_POST["correo"]),
                                                         "idempleado !="=>$_POST["idempleado"]));
-		    $correoRepetido=0;
-            foreach($empleados->result() as $empleado){
+	    foreach($empleados->result() as $empleado){
                 $correoRepetido++;
             }
             $this->form_validation->set_rules('correo', 'Correo Electrónico', 'trim|required|valid_email');
@@ -858,7 +858,7 @@ class Personal extends CI_Controller {
      */
 
     public function getTratamiento(){
-        $nombrePaciente = urldecode($this->uri->segment(3));
+        $nombrePaciente = $_POST["paciente"];
         $this->db->select("tratamiento.idtratamiento idtratamiento, procedimiento.nombre nombreTratamiento");
         $this->db->from("tratamiento");
         $this->db->join("paciente","paciente.idpaciente = tratamiento.paciente_idpaciente");

@@ -10,8 +10,16 @@
         $( "#paciente" ).autocomplete({
             source:"buscaPaciente",
             select: function(event, ui) {
-                    var respuesta = pideAjax("getTratamiento/"+ui.item.value);
-                    $("#tratamientos").html(respuesta);
+                    $.ajax({
+                      type: "POST",
+                      url: 'getTratamiento',
+                      data: {
+                        paciente : ui.item.value
+                      },
+                      success: function(data) {
+                        $('#tratamientos').html(data);
+                      }
+                    });
                 }
         });
         $(function() {
