@@ -26,6 +26,7 @@
                         }
                     },
                 submitHandler: function(form) {
+                    //alert(form.nombre.value);
                     $('#respuesta').html("<center><img src='/dentista/images/loading.gif' /></center>");
 	            var nombre = $("#nombre").val();
 	            var precio = $("#precio").val();
