@@ -28,16 +28,11 @@ function editarProducto(producto){
       dataType: "json",
 	  success: function(data) {
                 altaProducto.reset();
-	  	$("#idprocedimiento").val(data.idprocedimiento);
+	  	$("#idproducto").val(data.idproducto);
 	  	$("#nombre").val(data.nombre);
 	  	$("#precio").val(data.precio);
 	  	$("#descripcion").val(data.descripcion);
-                if(data.tratamiento == true){
-                    $("#tratamiento").attr("checked","checked");
-                } else {
-                    $("#tratamiento").removeAttr("checked");
-                }
-	  	$("#tipo").val("editar");
+                $("#tipo").val("editar");
 	  	$('#cancelar').html("<span onclick='altaProcedimiento.reset();\n\
                                                   $(\"#cancelar\").html(\"\");\n\
                                                   $(\"#idprocedimiento\").val(\"\");\n\

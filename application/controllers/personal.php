@@ -850,7 +850,36 @@ class Personal extends CI_Controller {
     }
 
     public function listadoProductos(){
-        echo "Listado de Productos";
+        $data["productos"] = $this->db->get("producto")->result();
+        $this->load->view("listadoProductos", $data);
+        echo "aquí andamos y no nos vamos";
+    }
+    
+    public function altaProducto(){
+        $producto["nombre"] = $_POST["nombre"];
+        $producto["precio"] = $_POST["precio"];
+        $producto["descripcion"] = $_POST["descripcion"];
+
+        if($_POST["tipo"] != "editar"){
+            $insert=$this->db->insert("producto",$producto);
+        } else {
+            $this->db->where("idproducto",$_POST["idproducto"]);
+            $insert=$this->db->update("producto",$producto);
+        }
+        if($insert){
+            echo "OK";
+        }
+    }
+    
+    public function getProductoJSON(){
+        $idProducto = $this->uri->segment(3);
+        $producto = $this->db->get_where("producto",array("idproducto"=>$idProducto))->result();
+        if(sizeof($producto)>0){
+            $producto = $producto[0];
+        }else{
+            $producto = array("error"=>"No se encontró el producto");
+        }
+        echo json_encode($producto);
     }
 
     /*
