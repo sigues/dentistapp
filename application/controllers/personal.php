@@ -832,6 +832,63 @@ class Personal extends CI_Controller {
         return;
     }
 
+    public function imprimirRecibo(){
+        $this->load->library("fpdf");
+        
+        // Creación del objeto de la clase heredada
+        //$this->fpdf = new PDF();
+        $this->fpdf->AliasNbPages();
+        $this->fpdf->AddPage();
+        $this->fpdf->SetFont('Arial','',14);
+        $this->fpdf->Cell(100,7,utf8_decode('Recibí de: '),0,0);
+        $this->fpdf->Cell(20,7,'Total: ',0,0);
+        $this->fpdf->Cell(20,7,'$200.00 ',0,1);
+
+        $this->fpdf->Cell(100,7,' ',0,0);
+        $this->fpdf->Cell(20,7,'Abono: ',0,0);
+        $this->fpdf->Cell(20,7,'$200.00 ',0,1);
+
+        $this->fpdf->Cell(100,7,'La cantidad de: ',0,0);
+        $this->fpdf->Cell(20,7,'Saldo: ',0,0);
+        $this->fpdf->Cell(20,7,'$0.00 ',0,1);
+
+        $this->fpdf->Cell(100,7,' ',0,0);
+        $this->fpdf->Cell(20,7,' ',0,0);
+        $this->fpdf->Cell(20,7,' ',0,1);
+
+        $this->fpdf->Cell(100,7,'Concepto: ',0,0);
+        $this->fpdf->Cell(20,7,' ',0,0);
+        $this->fpdf->Cell(20,7,' ',0,1);
+
+        $this->fpdf->Cell(100,7,' ',0,0);
+        $this->fpdf->Cell(20,7,' ',0,0);
+        $this->fpdf->Cell(20,7,' ',0,1);
+
+        //$this->fpdf->Ln();
+
+        $this->fpdf->Cell(0,7,'Firma      	              	 ',0,0,'R');
+
+        $this->fpdf->Ln();
+        $this->fpdf->Ln();
+
+        $this->fpdf->Cell(0,7,'Tijuana, B.C. A               DE                DEL 20        ',0,0,'L');
+
+        $this->fpdf->Ln();
+
+        $this->fpdf->SetFont('Arial','',11);
+
+
+        $this->fpdf->Cell(0,5,utf8_decode('BOULEVARD SÁNCHEZ TABOADA # 10488-6C ZONA URBANA'),0,1,'C');
+        $this->fpdf->Cell(0,5,'RIO TIJUANA, TIJUANA BAJA CALIFORNIA  22010 Tels (664) 6874447 - 2002507',0,1,'C');
+
+        $this->fpdf->line(1,110,209,110);
+
+        /*for($i=1;$i<=10;$i++)
+                $this->fpdf->Cell(10,5,'Imprimiendo línea número '.$i,1,1);*/
+        $this->fpdf->Output();
+
+    }
+
     /*
      * PRODUCTOS
      *
