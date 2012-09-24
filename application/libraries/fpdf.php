@@ -387,7 +387,7 @@ function Header()
                 $this->SetY(11);
                 $this->SetX(60);
                 // Título
-                $this->Cell(50,5,utf8_decode('DR. MARTÍN GARCÍA REYES'),0,0,'C');
+                $this->Cell(50,5,utf8_decode('DR. MARTÃN GARCÃA REYES'),0,0,'C');
 
                 $this->SetY(15);
                 $this->SetX(55);
