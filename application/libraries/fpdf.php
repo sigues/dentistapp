@@ -1,4 +1,4 @@
-ï»¿<?php 
+<?php 
 /*******************************************************************************
 * FPDF                                                                         *
 *                                                                              *
@@ -379,26 +379,26 @@ function Header()
                 // Posicionar texto de cabecera
                 $this->SetY(7);
                 $this->SetX(60);
-                // TÃ­tulo
+                // Título
                 $this->Cell(50,5,'RECIBO DE PAGO',0,0,'C');
                 // Arial 13
                 $this->SetFont('Arial','',10);
                 // Posicionar texto de cabecera
                 $this->SetY(11);
                 $this->SetX(60);
-                // TÃ­tulo
-                $this->Cell(50,5,utf8_decode('DR. MARTÃN GARCÃA REYES'),0,0,'C');
+                // Título
+                $this->Cell(50,5,utf8_decode('DR. MARTÍN GARCÍA REYES'),0,0,'C');
 
                 $this->SetY(15);
                 $this->SetX(55);
-                // TÃ­tulo
+                // Título
                 $this->Cell(60,5,'CIRUJANO DENTISTA / U.A.B.C',0,0,'C');
 
                 $this->SetY(19);
                 $this->SetX(35);
-                // TÃ­tulo
+                // Título
                 $this->Cell(100,5,'R.F.C GARM-720726-613 CURP GARM720726HPLRYR01',0,0,'C');
-                // Salto de lÃ­nea
+                // Salto de línea
                 $this->Ln(13);
         
 }
@@ -681,7 +681,7 @@ function Cell($w, $h=0, $txt='', $border=0, $ln=0, $align='', $fill=false, $link
 			$s .= 'q '.$this->TextColor.' ';
 		$txt2 = str_replace(')','\\)',str_replace('(','\\(',str_replace('\\','\\\\',$txt)));
 		$s .= sprintf('BT %.2F %.2F Td (%s) Tj ET',($this->x+$dx)*$k,($this->h-($this->y+.5*$h+.3*$this->FontSize))*$k,$txt2);
-		if($this->underline)
+                if($this->underline)
 			$s .= ' '.$this->_dounderline($this->x+$dx,$this->y+.5*$h+.3*$this->FontSize,$txt);
 		if($this->ColorFlag)
 			$s .= ' Q';
