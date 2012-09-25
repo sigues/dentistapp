@@ -44,7 +44,7 @@
                     }
                 },
         submitHandler: function(form) {
-                        $('#respuesta').html("<center><img src='/dentista/images/loading.gif' /></center>");
+                        $('#respuesta').html("<center><img src='../../images/loading.gif' /></center>");
             var nombre = $("#nombre").val();
             var apellidos = $("#apellidos").val();
             var correo = $("#correo").val();
@@ -86,7 +86,7 @@
                                 $('#'+datos[x]).css("border","solid thin #ff566f");
                         }
                 } else {
-                        $("#listadoEmpleados").html("<center><img src='/dentista/images/loading.gif' /></center>");
+                        $("#listadoEmpleados").html("<center><img src='../../images/loading.gif' /></center>");
                         $.ajax({
                               url: 'listadoEmpleados',
                               success: function(data) {

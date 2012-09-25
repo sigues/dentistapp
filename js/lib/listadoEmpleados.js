@@ -1,5 +1,5 @@
 function eliminarEmpleado(idempleado){
-    $("#listadoEmpleados").html("<center><img src='/dentista/images/loading.gif' /></center>");
+    $("#listadoEmpleados").html("<center><img src='../../images/loading.gif' /></center>");
     $.ajax({
       url: 'eliminaEmpleado',
       data: {

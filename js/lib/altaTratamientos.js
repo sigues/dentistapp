@@ -42,7 +42,7 @@ $(document).ready(function() {
 			    }
 		  	},
               submitHandler: function(form) {
-                    $('#respuesta').html("<center><img src='/dentista/images/loading.gif' /></center>");
+                    $('#respuesta').html("<center><img src='../../images/loading.gif' /></center>");
 	            var nombre = $("#nombre").val();
 	            var tratamiento = $("#tratamiento").val();
 	            var costo = $("#costo").val();
@@ -85,7 +85,7 @@ $(document).ready(function() {
 	                		$('#'+datos[x]).css("border","solid thin #ff566f");
 	                	}
 	                } else {
-	                	$("#listadoTratamientos").html("<center><img src='/dentista/images/loading.gif' /></center>");
+	                	$("#listadoTratamientos").html("<center><img src='../../images/loading.gif' /></center>");
 	                	$.ajax({
 			              url: 'listadoTratamientos',
 			              success: function(data) {

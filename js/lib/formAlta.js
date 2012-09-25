@@ -12,7 +12,7 @@ $(document).ready(function() {
                 }
             },
               submitHandler: function(form) {
-                    $('#respuesta').html("<center><img src='/dentista/images/loading.gif' /></center>");
+                    $('#respuesta').html("<center><img src='../../images/loading.gif' /></center>");
 	            var cantidad = $("#cantidad").val();
 	            var referencia = $("#referencia").val();
 
@@ -34,7 +34,7 @@ $(document).ready(function() {
 	                if (datos[0]=="KO"){
 	                	$('#respuesta').append("Se han encontrado errores al momento de guardar la información.");
 	                } else {
-	                	$("#listadoPagos").html("<center><img src='/dentista/images/loading.gif' /></center>");
+	                	$("#listadoPagos").html("<center><img src='../../images/loading.gif' /></center>");
                                 var nuevo_restante = $("#cantidad").attr("max-cant") - cantidad;
                                 $("#cantidad").attr("max-cant",nuevo_restante);
 	                	$.ajax({

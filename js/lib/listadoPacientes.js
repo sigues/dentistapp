@@ -1,5 +1,5 @@
 function eliminarPaciente(idpaciente){
-    $("#listadoPacientes").html("<center><img src='/dentista/images/loading.gif' /></center>");
+    $("#listadoPacientes").html("<center><img src='../../images/loading.gif' /></center>");
     $.ajax({
       url: 'eliminaPaciente',
       data: {

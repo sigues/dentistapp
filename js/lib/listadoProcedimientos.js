@@ -1,5 +1,5 @@
 function eliminarProcedimiento(idprocedimiento){
-    $("#listadoProcedimientos").html("<center><img src='/dentista/images/loading.gif' /></center>");
+    $("#listadoProcedimientos").html("<center><img src='../../images/loading.gif' /></center>");
     $.ajax({
       url: 'eliminaProcedimiento',
       data: {

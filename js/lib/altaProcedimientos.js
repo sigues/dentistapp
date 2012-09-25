@@ -26,7 +26,7 @@
                         }
                     },
                 submitHandler: function(form) {
-                    $('#respuesta').html("<center><img src='/dentista/images/loading.gif' /></center>");
+                    $('#respuesta').html("<center><img src='../../images/loading.gif' /></center>");
 	            var nombre = $("#nombre").val();
 	            var precio = $("#precio").val();
 	            var tratamiento = $("#tratamiento").attr('checked');
@@ -64,7 +64,7 @@
 	                		$('#'+datos[x]).css("border","solid thin #ff566f");
 	                	}
 	                } else {
-	                	$("#listadoProcedimientos").html("<center><img src='/dentista/images/loading.gif' /></center>");
+	                	$("#listadoProcedimientos").html("<center><img src='../../images/loading.gif' /></center>");
 	                	$.ajax({
 			              url: 'listadoProcedimientos',
 			              success: function(data) {

@@ -26,7 +26,7 @@
                         }
                     },
                 submitHandler: function(form) {
-                    $('#respuesta').html("<center><img src='/dentista/images/loading.gif' /></center>");
+                    $('#respuesta').html("<center><img src='../../images/loading.gif' /></center>");
 	            var nombre = $("#nombre").val();
 	            var precio = $("#precio").val();
 	            var descripcion = $("#descripcion").val();
@@ -62,7 +62,7 @@
 	                		$('#'+datos[x]).css("border","solid thin #ff566f");
 	                	}
 	                } else {
-	                	$("#listadoProductos").html("<center><img src='/dentista/images/loading.gif' /></center>");
+	                	$("#listadoProductos").html("<center><img src='../../images/loading.gif' /></center>");
 	                	$.ajax({
 			              url: 'listadoProductos',
 			              success: function(data) {

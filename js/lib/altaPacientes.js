@@ -48,7 +48,7 @@
 			    
 		  	},
 			  submitHandler: function(form) {
-			  	$('#respuesta').html("<center><img src='/dentista/images/loading.gif' /></center>");
+			  	$('#respuesta').html("<center><img src='../../images/loading.gif' /></center>");
 	            var nombre = $("#nombre").val();
 	            var apellidoPaterno = $("#apellidoPaterno").val();
 	            var apellidoMaterno = $("#apellidoMaterno").val();
@@ -95,7 +95,7 @@
 	                		$('#'+datos[x]).css("border","solid thin #ff566f");
 	                	}
 	                } else {
-	                	$("#listadoPacientes").html("<center><img src='/dentista/images/loading.gif' /></center>");
+	                	$("#listadoPacientes").html("<center><img src='../../images/loading.gif' /></center>");
 	                	$.ajax({
 			              url: 'listadoPacientes',
 			              success: function(data) {

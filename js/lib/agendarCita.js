@@ -122,7 +122,7 @@
                     }
                 },
         submitHandler: function(form) {
-            $('#respuesta').html("<center><img src='/dentista/images/loading.gif' /></center>");
+            $('#respuesta').html("<center><img src='../../images/loading.gif' /></center>");
             $.ajax({
               type: "POST",
               url: 'validaCita',
