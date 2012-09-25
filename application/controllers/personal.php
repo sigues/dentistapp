@@ -907,6 +907,7 @@ class Personal extends CI_Controller {
     }
 
     public function listadoProductos(){
+        $this->db->where("activo","si");
         $data["productos"] = $this->db->get("producto")->result();
         $this->load->view("listadoProductos", $data);
         echo "aquí andamos y no nos vamos";
@@ -937,6 +938,15 @@ class Personal extends CI_Controller {
             $producto = array("error"=>"No se encontró el producto");
         }
         echo json_encode($producto);
+    }
+
+    public function eliminaProducto(){
+        $idProducto = $_POST["idproducto"];
+        $this->db->where("idproducto",$_POST["idproducto"]);
+        $update = $this->db->update("producto",array("activo"=>"no"));
+        if($update == TRUE){
+            echo "OK";
+        }
     }
 
     /*
