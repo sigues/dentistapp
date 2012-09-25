@@ -390,7 +390,59 @@ img.aligncenter {
     height:200px;
     width:200px;
     background:transparent url(../images/boton-200.png);
+    z-index: 0;
 }
+
+.agenda {
+    height:200px;
+    width:200px;
+    background:transparent url(../images/agenda.png);
+    z-index: 1;
+}
+
+.productos {
+    height:200px;
+    width:200px;
+    background:transparent url(../images/productos.png);
+    z-index: 10;
+}
+
+.paciente {
+    height:200px;
+    width:200px;
+    background:transparent url(../images/paciente.png);
+    z-index: 10;
+}
+
+.empleados {
+    height:200px;
+    width:200px;
+    background:transparent url(../images/empleados.png);
+    z-index: 10;
+}
+
+.tratamientos {
+    height:200px;
+    width:200px;
+    background:transparent url(../images/tratamientos.png);
+    z-index: 10;
+}
+
+.seguimiento {
+    height:200px;
+    width:200px;
+    background:transparent url(../images/seguimiento.png);
+    z-index: 10;
+}
+
+.procedimientos {
+    height:200px;
+    width:200px;
+    background:transparent url(../images/procedimientos.png);
+    z-index: 10;
+}
+
+
 
 .boton200:hover {
     background:transparent url(../images/boton-200-over.png);
@@ -402,6 +454,8 @@ img.aligncenter {
 }
 
 .linkMenu {
+    margin-top:3px;
+    margin-bottom: 7px;
     text-align:center;
 }
 
