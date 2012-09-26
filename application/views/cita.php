@@ -4,6 +4,24 @@
                 var selected = $("#tabs").tabs('option', 'selected');
                 $("#tabs").tabs("remove",selected);
             });
+            $("#guardaProducto_<?=$idcita?>").click(function(){
+                $.ajax({
+                    type:"POST",
+                    url:'<?=base_url()?>index.php/personal/agregaProductoCita',
+                    data: {
+                        idcita: <?=$idcita?>,
+                        idproducto: $("#productosActivos_<?=$idcita?>").val(),
+                        costo: $("#costoProducto_<?=$idcita?>").val()
+                    },
+                    success: function(data){
+                        if(data == 'OK'){
+
+                        } else {
+
+                        }
+                    }
+                });
+            });
             $("#guardarCita_<?=$idcita?>").click( function(){
                 $('#respuesta_<?=$idcita?>').html("<center><img src='/dentista/images/loading.gif' /></center>");
                 $.ajax({
@@ -73,10 +91,26 @@ $nombrePaciente = (isset($cita->nombrePaciente)) ? $cita->nombrePaciente." ".$ci
             <td>$<?=$cita->costo?></td>
         </tr>
         <tr class="frm-par">
+            <td><label for="productos" class="frm-label" />Productos:</td>
+            <td>
+                <select name="productosActivos_<?=$idcita?>" id="productosActivos_<?=$idcita?>">
+                    <option> - Seleccionar - </option>
+                    <? foreach($productosActivos as $prodActivo) { ?>
+                        <option value="<?=$prodActivo->idproducto?>"><?=$prodActivo->nombre." ($".$prodActivo->precio.")"?></option>
+                    <? } ?>
+                </select> $<input type="text" name="costoProducto_<?=$idcita?>" id="costoProducto_<?=$idcita?>" size="3" /> <button name="guardaProducto_<?=$idcita?>" id="guardaProducto_<?=$idcita?>">Agregar</button>
+                <div id="productosCita">
+                    <?foreach($productos as $producto) { ?>
+                        <?="<br>$".$producto->costo." - ".$producto->nombre?>
+                    <? } ?>
+                </div>
+            </td>
+        </tr>
+        <tr class="frm-non">
             <td><label for="informacion" class="frm-label" />Información:</td>
             <td><?=$cita->observaciones?></td>
         </tr>
-        <tr class="frm-non">
+        <tr class="frm-par">
             <td><label for="estado" class="frm-label" />Estado:</td>
             <?php
             $disabled = "";
@@ -97,7 +131,7 @@ $nombrePaciente = (isset($cita->nombrePaciente)) ? $cita->nombrePaciente." ".$ci
                 
             </td>
         </tr>
-        <tr class="frm-par">
+        <tr class="frm-non">
             <td><label for="estado" class="frm-label" />Estado Financiero:</td>
             <?
                 $disabled = "";
@@ -123,13 +157,14 @@ $nombrePaciente = (isset($cita->nombrePaciente)) ? $cita->nombrePaciente." ".$ci
                 <button class="boton"
                         style="display:<?=$display?>"
                         id="registraPago_<?=$idcita?>"
-                        onClick='window.location = "<?=base_url()."index.php/personal/pagos/".$idcita?>";'>
+                        onClick='window.location = "<?=base_url()."index.php/personal/pagos/".$idcita?>";'
+                        costoTotal="">
                     Registrar Pago
                 </button>
                 <? } ?>
             </td>
         </tr>
-        <tr class="frm-non">
+        <tr class="frm-par">
             <td><label for="observaciones" class="frm-label" />Observaciones:</td>
             <td><textarea rows="7" cols="50" id="observacion_<?=$idcita?>" nombre="observacion_<?=$idcita?>"></textarea></td>
         </tr>

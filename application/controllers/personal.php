@@ -8,9 +8,10 @@ class Personal extends CI_Controller {
     public function index()
     {
         $usuario = $this->session->userdata("idempleado");
-        if(isset($_POST["entrar"])){
-            $this->usuario = $_POST["usuario"];
-            $this->contrasena = $_POST["contrasena"];
+        //if(isset($_POST["entrar"])){
+        if(!$usuario){
+            $this->usuario = "recep@dentista.com";//$_POST["usuario"];
+            $this->contrasena = "abc123";//$_POST["contrasena"];
             $login = $this->login();
             if ($login === TRUE){
                 $data["error"][0] = '';
@@ -461,7 +462,18 @@ class Personal extends CI_Controller {
         $this->db->group_by("cita.idcita");
 
         $data["citas"] = $this->db->get()->result();
-        
+
+        $this->db->select("producto.idproducto");
+        $this->db->select("producto.descripcion");
+        $this->db->select("producto.nombre");
+        $this->db->select("cita_has_producto.costo");
+        $this->db->from("producto");
+        $this->db->join("cita_has_producto","cita_has_producto.producto_idproducto = producto.idproducto ");
+        $this->db->where("cita_has_producto.cita_idcita",$data["idcita"]);
+        $data["productos"] = $this->db->get()->result();
+
+        $data["productosActivos"] = $this->db->get_where("producto",array("activo"=>"si"))->result();
+
         $row = $this->db->query("SHOW COLUMNS FROM cita LIKE 'estado'")->row()->Type;
         $regex = "/'(.*?)'/";
         preg_match_all( $regex , $row, $enum_array );
@@ -480,6 +492,18 @@ class Personal extends CI_Controller {
         
         
         $this->load->view("cita",$data);
+    }
+
+    public function agregaProductoCita(){
+        $data["producto_idproducto"] = $_POST["idproducto"];
+        $data["cita_idcita"] = $_POST["idcita"];
+        $data["costo"] = $_POST["costo"];
+        $producto = $this->db->insert("cita_has_producto",$data);
+        if($pruducto){
+            echo "OK";
+        } else {
+            echo "KO";
+        }
     }
     
     public function agendarCita(){
