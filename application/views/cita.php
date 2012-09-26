@@ -5,19 +5,25 @@
                 $("#tabs").tabs("remove",selected);
             });
             $("#guardaProducto_<?=$idcita?>").click(function(){
+                var idproducto = $("#productosActivos_<?=$idcita?>").val();
+                var costo = $("#costoProducto_<?=$idcita?>").val();
                 $.ajax({
                     type:"POST",
                     url:'<?=base_url()?>index.php/personal/agregaProductoCita',
                     data: {
                         idcita: <?=$idcita?>,
-                        idproducto: $("#productosActivos_<?=$idcita?>").val(),
-                        costo: $("#costoProducto_<?=$idcita?>").val()
+                        idproducto: idproducto,
+                        costo: costo
                     },
                     success: function(data){
                         if(data == 'OK'){
-
+                            var nombreProducto = $("#nombreProductos").attr("prod"+idproducto);
+                            $("#productosCita").append("<br>$"+costo+" - "+nombreProducto);
+                            var pendienteTotal = $("#pendienteTotal").attr("total")+costo;
+                            $("#pendienteTotal").attr("total",pendienteTotal);
+                            $("#pendienteTotal").html(pendienteTotal);
                         } else {
-
+                            
                         }
                     }
                 });
@@ -95,13 +101,20 @@ $nombrePaciente = (isset($cita->nombrePaciente)) ? $cita->nombrePaciente." ".$ci
             <td>
                 <select name="productosActivos_<?=$idcita?>" id="productosActivos_<?=$idcita?>">
                     <option> - Seleccionar - </option>
-                    <? foreach($productosActivos as $prodActivo) { ?>
+                    <? foreach($productosActivos as $prodActivo) { 
+                        $productosInput .= " prod".$prodActivo->idproducto."='".$prodActivo->nombre."' ";
+                    ?>
                         <option value="<?=$prodActivo->idproducto?>"><?=$prodActivo->nombre." ($".$prodActivo->precio.")"?></option>
                     <? } ?>
-                </select> $<input type="text" name="costoProducto_<?=$idcita?>" id="costoProducto_<?=$idcita?>" size="3" /> <button name="guardaProducto_<?=$idcita?>" id="guardaProducto_<?=$idcita?>">Agregar</button>
+                </select> 
+                <input type="hidden" name="nombreProductos" id="nombreProductos" <?=$productosInput?> />
+                $<input type="text" name="costoProducto_<?=$idcita?>" id="costoProducto_<?=$idcita?>" size="3" /> <button name="guardaProducto_<?=$idcita?>" id="guardaProducto_<?=$idcita?>">Agregar</button>
                 <div id="productosCita">
-                    <?foreach($productos as $producto) { ?>
+                    <?
+                    $costoProductos=0;
+                    foreach($productos as $producto) { ?>
                         <?="<br>$".$producto->costo." - ".$producto->nombre?>
+                        <? $costoProductos += $producto->costo; ?>
                     <? } ?>
                 </div>
             </td>
@@ -147,11 +160,11 @@ $nombrePaciente = (isset($cita->nombrePaciente)) ? $cita->nombrePaciente." ".$ci
                 }
             ?>
             <td><?php
-                    $pendiente = $cita->costo - $cita->cantidad;
+                    $pendiente = ($cita->costo - $cita->cantidad) + $costoProductos;
                 ?>
                 <?=ucfirst($cita->estadoFinanciero)?>
                 <? if($cita->estadoFinanciero == "pendiente" || $cita->estadoFinanciero == "en proceso"){ ?>
-                ($<?=$pendiente?>)
+                ($<span id="pendienteTotal" total="<?=$pendiente?>"><?=$pendiente?></span>)
                 <? }
                 if($pendiente>0){?>
                 <button class="boton"

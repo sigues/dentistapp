@@ -489,8 +489,6 @@ class Personal extends CI_Controller {
         $this->db->where("observacion.cita_idcita",$data["idcita"]);
         $data["observaciones"] = $this->db->get()->result();
         
-        
-        
         $this->load->view("cita",$data);
     }
 
@@ -499,7 +497,7 @@ class Personal extends CI_Controller {
         $data["cita_idcita"] = $_POST["idcita"];
         $data["costo"] = $_POST["costo"];
         $producto = $this->db->insert("cita_has_producto",$data);
-        if($pruducto){
+        if($producto){
             echo "OK";
         } else {
             echo "KO";
