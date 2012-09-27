@@ -880,6 +880,48 @@ class Personal extends CI_Controller {
     }
 
     public function imprimirRecibo(){
+        
+        $idCita = $this->uri->segment(3);
+        $this->db->select("paciente.nombre");
+        $this->db->select("paciente.apellidos");
+        $this->db->select("procedimiento.nombre nombreProcedimiento");
+        $this->db->select("cita.tratamiento_idtratamiento idtratamiento");
+        $this->db->select("cita.costo");
+        $this->db->from("cita");
+        $this->db->join("paciente","paciente.idpaciente = cita.paciente_idpaciente");
+        $this->db->join("procedimiento","procedimiento.idprocedimiento = cita.procedimiento_idprocedimiento");
+        $this->db->where("cita.idcita",$idCita);
+        $cita = $this->db->get()->result();
+        $cita = $cita[0];
+        
+        $this->db->select_sum("pago.cantidad");
+        $this->db->from("pago");
+        $this->db->where("cita_idcita",$idCita);
+        $pagos = $this->db->get()->result();
+        $pagos = $pagos[0];
+        
+        $saldo = 0;
+        $abono = $pagos->cantidad;
+        if($cita->idtratamiento > 0){
+            $this->db->select("costo");
+            $this->db->from("tratamiento");
+            $this->db->where("idtratamiento",$cita->idtratamiento);
+            $tratamiento = $this->db->get()->result();
+            $tratamiento = $tratamiento[0];
+            
+            //select * from cita where tratamiento_idtratamiento = '' and cita.estadoFinanciero = "pagado";
+            $this->db->select_sum("cita.costo");
+            $this->db->from("cita");
+            $this->db->where("tratamiento_idtratamiento",$cita->idtratamiento);
+            $this->db->where("estadoFinanciero","pagado");
+            $abonos = $this->db->get()->result();
+            $abonos = $abonos[0];
+            $saldo = $tratamiento->costo - ($abonos->costo + $cita->costo);
+            $abono = $cita->costo;
+        } 
+        
+        
+        
         $this->load->library("fpdf");
         
         // Creación del objeto de la clase heredada
@@ -889,17 +931,17 @@ class Personal extends CI_Controller {
         $this->fpdf->SetFont('Arial','',14);
         $this->fpdf->Cell(100,7,utf8_decode('Recibí de: '),0,0);
         $this->fpdf->Cell(20,7,'Total: ',0,0);
-        $this->fpdf->Cell(20,7,'$200.00 ',0,1);
+        $this->fpdf->Cell(20,7,utf8_decode("$".number_format($pagos->cantidad,2,".",",")),0,1);
 
-        $this->fpdf->Cell(100,7,' ',0,0);
+        $this->fpdf->Cell(100,7,utf8_decode($cita->nombre.' '.$cita->apellidos),0,0);
         $this->fpdf->Cell(20,7,'Abono: ',0,0);
-        $this->fpdf->Cell(20,7,'$200.00 ',0,1);
+        $this->fpdf->Cell(20,7,utf8_decode("$".number_format($abono,2,".",",")),0,1);
 
         $this->fpdf->Cell(100,7,'La cantidad de: ',0,0);
         $this->fpdf->Cell(20,7,'Saldo: ',0,0);
-        $this->fpdf->Cell(20,7,'$0.00 ',0,1);
+        $this->fpdf->Cell(20,7,utf8_decode("$".number_format($saldo,2,".",",")),0,1);
 
-        $this->fpdf->Cell(100,7,' ',0,0);
+        $this->fpdf->Cell(100,7,utf8_decode("$".number_format($pagos->cantidad,2,".",",")),0,0);
         $this->fpdf->Cell(20,7,' ',0,0);
         $this->fpdf->Cell(20,7,' ',0,1);
 
@@ -907,7 +949,7 @@ class Personal extends CI_Controller {
         $this->fpdf->Cell(20,7,' ',0,0);
         $this->fpdf->Cell(20,7,' ',0,1);
 
-        $this->fpdf->Cell(100,7,' ',0,0);
+        $this->fpdf->Cell(100,7,utf8_decode($cita->nombreProcedimiento),0,0);
         $this->fpdf->Cell(20,7,' ',0,0);
         $this->fpdf->Cell(20,7,' ',0,1);
 
@@ -917,8 +959,21 @@ class Personal extends CI_Controller {
 
         $this->fpdf->Ln();
         $this->fpdf->Ln();
-
-        $this->fpdf->Cell(0,7,'Tijuana, B.C. A               DE                DEL 20        ',0,0,'L');
+        $meses = array(
+            "01"=>"Enero",
+            "02"=>"Febrero",
+            "03"=>"Marzo",
+            "04"=>"Abril",
+            "05"=>"Mayo",
+            "06"=>"Junio",
+            "07"=>"Julio",
+            "08"=>"Agosto",
+            "09"=>"Septiembre",
+            "10"=>"Octubre",
+            "11"=>"Noviembre",
+            "12"=>"Diciembre"
+        );
+        $this->fpdf->Cell(0,7,'Tijuana, B.C. A  '.date("d").'  DE   '.$meses[date("m")].'   DEL '.date("Y").'   ',0,0,'L');
 
         $this->fpdf->Ln();
 
