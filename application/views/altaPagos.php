@@ -1,8 +1,8 @@
 <script src="<?=base_url()?>js/lib/altaPagos.js"></script>
 
 <?php
-//var_dump($cita);
-    $restante = $cita[0]->costo - $cita[0]->cantidad;
+
+    $restante = ($cita[0]->costo+$productos[0]->costo) - $cita[0]->cantidad ;
     
 ?>
 

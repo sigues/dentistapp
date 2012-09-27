@@ -1,3 +1,5 @@
+<script src="<?=base_url()?>js/lib/listadoPagos.js"></script>
+
 <a href="<?=base_url()?>index.php/personal/cita/<?=$_POST["idCita"]?>#tabs-2">Regresar a Cita</a>
 
 <table id="reporte">
@@ -7,7 +9,7 @@
             <th scope="col">Cantidad</th>
             <th scope="col">Fecha</th>
             <th scope="col">Empleado</th>
-            <th scope="col">Imprimir Recibos</th>
+            <!--<th scope="col">Imprimir Recibos</th>!-->
         </tr>
     </thead>
     <tbody>
@@ -23,13 +25,13 @@ $total=0;
                 <td scope="row">$<?=number_format($pago->cantidad,2,".",",")?></td>
                 <th scope="row"><?=$pago->fechaHora?></th>
                 <td scope="row"><?=$pago->nombre." ".$pago->apellidos?></td>
-                <td scope="row">
+                <!--<td scope="row">
                     <div style="width:80px;" class="ui-widget icon-collection">
                         <div class="ui-state-default ui-corner-all boton boton20">
                             <span class="ui-icon ui-icon-print" onclick="generarRecibo(<?=$pago->idpago?>)" alt="Generar Recibo">Generar Recibo</span>
                         </div>
                     </div>
-                </td>
+                </td>!-->
             </tr>
         <? } ?>
     </tbody>
@@ -42,9 +44,11 @@ $total=0;
                 Restante: $<?=number_format($costo-$total,2,".",",");?>
             <? } else { ?>
                 <div style="width:80px;" class="ui-widget icon-collection">
-                    <div class="ui-state-default ui-corner-all boton boton20">
-                        <span class="ui-icon ui-icon-print" onclick="generarRecibo(<?=$pago->idpago?>)" alt="Generar Recibo">Generar Recibo</span>
-                    </div>
+                    <a href="<?=base_url()."index.php/personal/imprimirRecibo/".$cita?>" target="_blank">
+                        <div class="ui-state-default ui-corner-all boton boton20">
+                            <span class="ui-icon ui-icon-print" <!--onclick="generarRecibo(<?=$cita?>)"!--> alt="Generar Recibo">Generar Recibo</span>
+                        </div>
+                    </a>
                 </div> Imprimir Recibo
             <? } ?>
             </td>

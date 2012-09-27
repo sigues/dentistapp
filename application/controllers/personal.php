@@ -412,6 +412,18 @@ class Personal extends CI_Controller {
         //echo $this->db->last_query();die();
         $data["idpaciente"] = $data["paciente"]->idpaciente;
 
+        
+        $this->db->select("producto.idproducto");
+        $this->db->select("producto.descripcion");
+        $this->db->select("producto.nombre");
+        $this->db->select("cita_has_producto.costo");
+        $this->db->from("producto");
+        $this->db->join("cita_has_producto","cita_has_producto.producto_idproducto = producto.idproducto ");
+        $this->db->where("cita_has_producto.cita_idcita",$data["idcita"]);
+        $data["productos"] = $this->db->get()->result();
+
+        $data["productosActivos"] = $this->db->get_where("producto",array("activo"=>"si"))->result();
+
         /* valores enum de estado */
         $row = $this->db->query("SHOW COLUMNS FROM cita LIKE 'estado'")->row()->Type;
         $regex = "/'(.*?)'/";
@@ -772,10 +784,17 @@ class Personal extends CI_Controller {
         $this->db->join("pago","cita.idcita = pago.cita_idcita","left");
         $this->db->where("cita.idcita",$data["idcita"]);
         $this->db->group_by("cita.idcita");
-
         $data["cita"] = $this->db->get()->result();
+        
+        $this->db->select_sum("costo");
+        $this->db->from("cita_has_producto");
+        $this->db->where("cita_idcita",$data["idcita"]);
+        $data["productos"] = $this->db->get()->result();
+        
+        
+        
         $c=0;
-        if($data["cita"][0]->costo - $data["cita"][0]->cantidad > 0){
+        if(($data["cita"][0]->costo + $data["productos"][0]->costo) - $data["cita"][0]->cantidad > 0){
             $data["titulo"][$c] = "Registro de pagos";
             $data["subtitulo"][$c] = "Utilize esta forma para registrar los pagos de los pacientes";
             $data["contenido"][$c] = $this->load->view("altaPagos",$data,TRUE);
@@ -807,7 +826,13 @@ class Personal extends CI_Controller {
             return false;
         } else {
             $res_cita = $this->db->get_where("cita",array("idcita"=>$cita))->result();
-            $data["costo"]=$res_cita[0]->costo;
+            
+            $this->db->select_sum("costo");
+            $this->db->from("cita_has_producto");
+            $this->db->where("cita_idcita",$cita);
+            $productos = $this->db->get()->result();
+            
+            $data["costo"]=$res_cita[0]->costo + $productos[0]->costo;
             $data["cita"]=$cita;
 
             

@@ -19,7 +19,8 @@
                         if(data == 'OK'){
                             var nombreProducto = $("#nombreProductos").attr("prod"+idproducto);
                             $("#productosCita").append("<br>$"+costo+" - "+nombreProducto);
-                            var pendienteTotal = $("#pendienteTotal").attr("total")+costo;
+                            var pendiente = parseFloat($("#pendienteTotal").attr("total"))
+                            var pendienteTotal = pendiente+parseFloat(costo);                            
                             $("#pendienteTotal").attr("total",pendienteTotal);
                             $("#pendienteTotal").html(pendienteTotal);
                         } else {
