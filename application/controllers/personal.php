@@ -714,8 +714,7 @@ class Personal extends CI_Controller {
         $this->db->join("paciente","paciente.idpaciente = tratamiento.paciente_idpaciente");
         $this->db->join("procedimiento","procedimiento.idprocedimiento = tratamiento.procedimiento_idprocedimiento");
         $this->db->join("cita","tratamiento.idtratamiento = cita.tratamiento_idtratamiento AND cita.estado = 'realizada' ","left");
-        $this->db->join("cita citasPendientes","tratamiento.idtratamiento = citasPendientes.tratamiento_idtratamiento
-                        AND citasPendientes.estado = 'pendiente' ","left");
+        $this->db->join("cita citasPendientes","tratamiento.idtratamiento = citasPendientes.tratamiento_idtratamiento AND citasPendientes.estado = 'pendiente' ","left");
         $this->db->where("paciente.activo = 'si'");
         $this->db->where("tratamiento.estado != 'cancelado'");
         $this->db->group_by("tratamiento.idtratamiento");
