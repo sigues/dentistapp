@@ -24,8 +24,11 @@
         <div>
                 <h3><a href="#"><?=$cita->nombreProcedimiento?> <?=$cita->fecha?> <?=$cita->horaInicio?> (<?=$cita->estado?>)</a></h3>
                 <div>
-                    <span id="editar_<?=$cita->idcita?>">Editar</span><br /><br /><br /><br />
-                    Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.
+                    <span id="editar_<?=$cita->idcita?>" class="editar">Editar</span><br /><br />
+                    <? 
+                    $data["cita"] = $cita;
+                    $this->load->view("resumenCita",$data);
+                    ?>
                 </div>
         </div>
     <? } ?>

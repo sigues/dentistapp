@@ -566,3 +566,12 @@ color: #669;
 border-top: 1px solid transparent;
 padding: 8px;
 }
+
+.editar {
+    cursor : pointer
+}
+
+.editar:hover{
+    text-decoration: underline;
+    color:#378de5;
+}

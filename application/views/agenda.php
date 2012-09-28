@@ -8,7 +8,24 @@
               type: "POST",
               url: 'agendaAjax',
               data: {
-                  personal : $("#personal").val()
+                  personal : $("#personal").val(),
+                  estado : $("#estado").val(),
+              },
+              success: function(data) {
+                 //alert("balls"); 
+                 $("#calendar").html("");
+                 $("#scriptAjax").html(data);
+              }
+          });
+        });
+        
+        $("#estado").change(function(){
+            $.ajax({
+              type: "POST",
+              url: 'agendaAjax',
+              data: {
+                  personal : $("#personal").val(),
+                  estado : $("#estado").val(),
               },
               success: function(data) {
                  //alert("balls"); 
@@ -22,12 +39,20 @@
 <div name="scriptAjax" id="scriptAjax">
     <?=$scriptAjax?>
 </div>
-<select name="personal" id="personal">
+Filtrar por doctor: <select name="personal" id="personal">
     <option value="0"> - Todos - </option>
 <? foreach($empleados as $empleado){ ?>
     <option value="<?=$empleado->idempleado?>"><?=$empleado->nombre?></option>
 <? } ?>
 </select>
+&nbsp;&nbsp;&nbsp;&nbsp;
+Filtrar por estado de cita:
+<select name="estado" id="estado">
+    <option value="0"> - Todos - </option>
+<? foreach($estados as $estado){ ?>
+    <option value="<?=$estado?>"><?=$estado?></option>
+<? } ?>
+</select><br><br>
 <div id = "divcalendar">
     <div id = 'calendar'></div>
 </div>

@@ -326,6 +326,19 @@ class Personal extends CI_Controller {
         $data["empleados"] = $this->db->get_where("empleado", array("puesto"=>"dentista","activo"=>"si"))->result();
         $this->db->where('cita.estado','pendiente');
         $data["scriptAjax"]=$this->load->view('ajax/citas',$data,TRUE);
+        
+        $row = $this->db->query("SHOW COLUMNS FROM cita LIKE 'estado'")->row()->Type;
+        $regex = "/'(.*?)'/";
+        preg_match_all( $regex , $row, $enum_array );
+        $enum_fields = $enum_array[1];
+        foreach ($enum_fields as $key=>$value)
+        {
+            $enums[$value] = $value;
+        }
+
+        $data["estados"]=$enums;
+        
+        
         $data["contenido"][0]=$this->load->view('agenda',$data,TRUE);
         $data["seccion"]="personal";
         $this->load->view('template',$data);
@@ -333,14 +346,20 @@ class Personal extends CI_Controller {
     
     public function agendaAjax(){
         $idempleado = intval($_POST["personal"]);
+        $estado = ($_POST["estado"])?$_POST["estado"]:"";
         $this->db->select('*');
         $this->db->from('cita');
         $this->db->join('paciente', 'cita.paciente_idpaciente = paciente.idpaciente');
         if($idempleado>0){
-            $this->db->where('empleado_idempleado',$idempleado);
+            $this->db->where('cita.empleado_idempleado',$idempleado);
         }
-        $this->db->where('cita.estado','pendiente');
+        if($estado != ""){
+            $this->db->where('cita.estado',$estado);
+        }
+        
+        //$this->db->where('cita.estado','pendiente');
         $data["citas"] = $this->db->get()->result();
+            
         $this->load->view('ajax/citas',$data);
     }
 
@@ -374,11 +393,13 @@ class Personal extends CI_Controller {
         }
         $this->db->select("cita.*");
         $this->db->select("procedimiento.nombre nombreProcedimiento");
+        $this->db->select("empleado.nombre nombreEmpleado");
         $this->db->from("cita");
         $this->db->join("procedimiento","cita.procedimiento_idprocedimiento = procedimiento.idprocedimiento");
         $this->db->join("empleado","empleado.idempleado=cita.empleado_idempleado");
         $this->db->where("cita.paciente_idpaciente",$data["paciente"]->idpaciente);
         $data["citas"] = $this->db->get()->result();
+        echo $this->db->last_query();
         $data["titulo"][0]="Ficha del paciente Paciente Ejemplo";
         $data["subtitulo"][0]="En la pestaña de Cita puede ver la cita actual y en la de expediente las citas anteriores e información sobre el paciente";
         $data["contenido"][0] = $this->load->view('fichaPaciente',$data,TRUE);
@@ -401,6 +422,7 @@ class Personal extends CI_Controller {
         $this->db->select_sum("pago.cantidad");
         $this->db->select("cita.*");
         $this->db->select("procedimiento.nombre nombreProcedimiento");
+        $this->db->select("empleado.nombre nombreEmpleado");
         $this->db->from("cita");
         $this->db->join("procedimiento","cita.procedimiento_idprocedimiento = procedimiento.idprocedimiento");
         $this->db->join("empleado","empleado.idempleado=cita.empleado_idempleado");
@@ -764,15 +786,25 @@ class Personal extends CI_Controller {
         $data["paciente"] = $_POST["paciente"];
         $data["tratamiento"] = $_POST["tratamiento"];
         $this->db->select("cita.*");
+        $this->db->select("procedimiento.nombre nombreProcedimiento");
+        $this->db->select_sum("pago.cantidad");
         $this->db->from("tratamiento");
         $this->db->join("cita","cita.tratamiento_idtratamiento = tratamiento.idtratamiento");
         $this->db->join("procedimiento","cita.procedimiento_idprocedimiento = procedimiento.idprocedimiento");
-        $this->db->join("procedimiento nombreTratamiento","tratamiento.procedimiento_idprocedimiento = nombreTratamiento.idprocedimiento");
+        $this->db->join("pago","pago.cita_idcita = cita.idcita");
         $this->db->where("tratamiento.idtratamiento",$data["tratamiento"]);
-        $citas = $this->db->get()->result();
-        echo $this->db->last_query();
+        $this->db->where("cita.estado !=","cancelada");
+        $data["citas"]= $this->db->get()->result();
 
-
+        $this->db->select("tratamiento.*");
+        $this->db->select("procedimiento.nombre nombreProcedimiento");
+        $this->db->from("tratamiento");
+        $this->db->join("procedimiento","tratamiento.procedimiento_idprocedimiento = procedimiento.idprocedimiento");
+        $this->db->where("tratamiento.idtratamiento",$data["tratamiento"]);
+        
+        $data["tratamiento"]= $this->db->get()->result();
+        $data["tratamiento"] = $data["tratamiento"][0];
+        //var_dump($data["tratamiento"]);
         $this->load->view('seguimientoTratamiento',$data);
     }
 
@@ -864,12 +896,14 @@ class Personal extends CI_Controller {
 
         $pago = array("cantidad"=>$_POST["cantidad"],
                     "fechaHora"=>date("Y-m-d H:i:s"),
-                    "referencia"=>$_POST["referencia"],
                     "cita_idcita"=>$_POST["cita_idcita"],
                     "empleado_idempleado"=>$usuario);
+        if(isset($_POST["referencia"])){
+            $pago["referencia"]=$_POST["referencia"];
+        }
         $insert = $this->db->insert("pago",$pago);
 
-        if(($_post["cantidad"] - $_POST["restante"])==0){
+        if(($_POST["cantidad"] - $_POST["restante"])==0){
             $data = array(
                'estadoFinanciero' => 'pagado'
             );
