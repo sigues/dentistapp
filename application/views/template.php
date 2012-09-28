@@ -132,8 +132,9 @@ function pideAjax(vurl){
                                                     <li><?=anchor(base_url().'index.php/personal/logout','Cerrar Sesión')?></li>
                                                     <? } ?>
 							<li>
-								<h2>Sistema Interactivo De Gestión Dental</h2>
+								<h2>SIGDEN</h2>
 								<p>
+                                                                    <strong>Sistema Interactivo De Gestión Dental</strong><br>
                                                                     Este sistema le servirá para administrar todo lo relacionado con su consultorio.
                                                                 </p>
 							</li>
