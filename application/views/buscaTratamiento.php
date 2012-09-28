@@ -1,46 +1,5 @@
-<script>
-$(document).ready(function() {
-        $('#timepicker').datepicker({ dateFormat: "dd/mm/yy" });
-        $( "#paciente" ).autocomplete({
-            source:"buscaPaciente",
-            select: function(event, ui) {
-                    $.ajax({
-                      type: "POST",
-                      url: 'getTratamiento',
-                      data: {
-                        paciente : ui.item.value
-                      },
-                      success: function(data) {
-                        $('#tratamientos').html(data);
-                      }
-                    });
-                }
-        });
+<script src="<?=base_url()?>js/lib/buscaTratamiento.js"></script>
 
-        $("#buscarTratamiento").click(function(){
-            var tratamiento = $("#tratamiento").val();
-            if(tratamiento != ""){
-                $.ajax({
-                  type: "POST",
-                  url: 'seguimientoTratamiento',
-                  data: {
-                    paciente : $("#paciente").val(),
-                    tratamiento : $("#tratamiento").val(),
-                  },
-                  success: function(data) {
-                    $('#respuesta').html("<center>La cita se guard\u00f3 satisfactoriamente</center>");
-                  }
-                });
-            } else {
-                alert("Debe seleccionar un tratamiento v\u00e1lido");
-            }
-        });
-
-});
-
-
-
-</script>
 <form action="" method="POST" class="frm">
     <table width="500px">
         <tr class="frm-non">

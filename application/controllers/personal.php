@@ -753,17 +753,27 @@ class Personal extends CI_Controller {
         $data["titulo"][0] = "Buscador de Tratamiento";
         $data["subtitulo"][0] = "Panel para buscar un tratamiento";
         $data["contenido"][0] = $this->load->view('buscaTratamiento',$data,TRUE);
-        $data["titulo"][1] = "Seguimiento de Tratamiento de Ortodoncia de Juan Perez";
-        $data["subtitulo"][1] = "Panel para ver el seguimiento que se le ha dado a un tratamiento";
-        $data["contenido"][1] = $this->load->view('seguimientoTratamiento',$data,TRUE);
+        $data["titulo"][1] = "";
+        $data["subtitulo"][1] = "";
+        $data["contenido"][1] = "<div id='respuesta'></div>";
         $data["seccion"]="personal";
 	$this->load->view("template",$data);
     }
 
     public function listadoTratamiento(){
-        $paciente = $_POST["paciente"];
-        $tratamiento = $_POST["tratamiento"];
-        
+        $data["paciente"] = $_POST["paciente"];
+        $data["tratamiento"] = $_POST["tratamiento"];
+        $this->db->select("cita.*");
+        $this->db->from("tratamiento");
+        $this->db->join("cita","cita.tratamiento_idtratamiento = tratamiento.idtratamiento");
+        $this->db->join("procedimiento","cita.procedimiento_idprocedimiento = procedimiento.idprocedimiento");
+        $this->db->join("procedimiento nombreTratamiento","tratamiento.procedimiento_idprocedimiento = nombreTratamiento.idprocedimiento");
+        $this->db->where("tratamiento.idtratamiento",$data["tratamiento"]);
+        $citas = $this->db->get()->result();
+        echo $this->db->last_query();
+
+
+        $this->load->view('seguimientoTratamiento',$data);
     }
 
     /*
