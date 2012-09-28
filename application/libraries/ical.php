@@ -98,7 +98,9 @@ class ical {
 	 * @return string 
 	 */
 	function __get($key) {
+            if(isset($this->properties[$key])){
 		return $this->properties[$key];
+            }
 	}
 	
 	/**
@@ -393,6 +395,7 @@ END:VCALENDAR
 	function getTimezoneAbbr($dstOffset) {
 		$dstOffset*=3600;
 		$list=timezone_abbreviations_list();
+                $abbreviation="";
 		foreach($list as $abbr=>$data) {
 			foreach($data as $items) {
 				if($items["timezone_id"]==$this->timezone && $items["offset"]==$dstOffset && !$abbreviation) {

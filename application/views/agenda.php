@@ -9,7 +9,7 @@
               url: 'agendaAjax',
               data: {
                   personal : $("#personal").val(),
-                  estado : $("#estado").val(),
+                  estado : $("#estado").val()
               },
               success: function(data) {
                  //alert("balls"); 
@@ -25,7 +25,7 @@
               url: 'agendaAjax',
               data: {
                   personal : $("#personal").val(),
-                  estado : $("#estado").val(),
+                  estado : $("#estado").val()
               },
               success: function(data) {
                  //alert("balls"); 

@@ -52,7 +52,7 @@ function pideAjax(vurl){
 	<div id="header-wrapper">
 		<div id="header">
 			<div id="logo">
-				<h1><a href="#">Clínica Dientes Chulos</a></h1>
+				<h1><a href="#">Sistema Interactivo De Gestión Dental</a></h1>
 				<p>Donde lo mas importante son sus dientes</p>
 			</div>
 		</div>
@@ -129,11 +129,13 @@ function pideAjax(vurl){
 					<div id="sidebar">
 						<ul>
                                                     <? if($this->session->userdata("idempleado")>0){?>
-                                                    <li><?=anchor(base_url().'index.php/personal/logout','LO')?></li>
+                                                    <li><?=anchor(base_url().'index.php/personal/logout','Cerrar Sesión')?></li>
                                                     <? } ?>
 							<li>
-								<h2>Aliquam tempus</h2>
-								<p>Mauris vitae nisl nec metus placerat perdiet est. Phasellus dapibus semper consectetuer hendrerit.</p>
+								<h2>Sistema Interactivo De Gestión Dental</h2>
+								<p>
+                                                                    Este sistema le servirá para administrar todo lo relacionado con su consultorio.
+                                                                </p>
 							</li>
 							<li>
 								<h2>Categories</h2>
@@ -146,7 +148,7 @@ function pideAjax(vurl){
 									<li><a href="#">Proin gravida orci porttitor</a></li>
 								</ul>
 							</li>
-							<li>
+							<!--<li>
 								<h2>Blogroll</h2>
 								<ul>
 									<li><a href="#">Aliquam libero</a></li>
@@ -167,7 +169,7 @@ function pideAjax(vurl){
 									<li><a href="#">Urnanet non molestie semper</a></li>
 									<li><a href="#">Proin gravida orci porttitor</a></li>
 								</ul>
-							</li>
+							</li>!-->
 						</ul>
 					</div>
                                         <? } ?>

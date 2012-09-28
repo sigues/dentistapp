@@ -346,8 +346,10 @@ class Personal extends CI_Controller {
     
     public function agendaAjax(){
         $idempleado = intval($_POST["personal"]);
-        $estado = ($_POST["estado"])?$_POST["estado"]:"";
-        $this->db->select('*');
+        $estado = (isset($_POST["estado"]))?$_POST["estado"]:"";
+        $this->db->select('cita.*');
+        $this->db->select('cita.estado estado');
+        $this->db->select('paciente.nombre, paciente.apellidoPaterno, paciente.apellidoMaterno');
         $this->db->from('cita');
         $this->db->join('paciente', 'cita.paciente_idpaciente = paciente.idpaciente');
         if($idempleado>0){
@@ -356,10 +358,19 @@ class Personal extends CI_Controller {
         if($estado != ""){
             $this->db->where('cita.estado',$estado);
         }
-        
-        //$this->db->where('cita.estado','pendiente');
         $data["citas"] = $this->db->get()->result();
-            
+        
+        $row = $this->db->query("SHOW COLUMNS FROM cita LIKE 'estado'")->row()->Type;
+        $regex = "/'(.*?)'/";
+        preg_match_all( $regex , $row, $enum_array );
+        $enum_fields = $enum_array[1];
+        foreach ($enum_fields as $key=>$value)
+        {
+            $enums[$value] = $value;
+        }
+
+        $data["estados"]=$enums;
+        
         $this->load->view('ajax/citas',$data);
     }
 
@@ -377,7 +388,27 @@ class Personal extends CI_Controller {
         $this->db->join("procedimiento","procedimiento.idprocedimiento = cita.procedimiento_idprocedimiento");
         $this->db->where("cita.idcita",$data["id"]);
         $data["cita"] = $this->db->get()->result();
-        //print_r($data["cita"]);
+        
+        $this->load->library("ical");
+        $cita = $data["cita"][0];
+        $this->ical->setEventStartTime($cita->horaInicio);
+        $this->ical->setEventEndTime($cita->horaFin);
+        $this->ical->setEventStartDate($cita->fecha);
+        $this->ical->setEventTitle("Cita con paciente ".$cita->nombreEmpleado);
+        $this->ical->setURL(base_url()."index.php/personal/cita/".$cita->idcita);
+        $this->ical->setNotes($cita->observaciones);
+        $data["datosEventoIcal"]=$this->ical->createEvent();
+        
+        $this->load->helper('file');
+        if ( ! write_file('ical/cita'.$cita->idcita.'.ics', $data["datosEventoIcal"],'w+'))
+        {
+            echo 'No se pudo exportar para iphone';
+        }
+        else
+        {
+            $data["eventoIcal"] = 'ical/cita'.$cita->idcita.'.ics';
+        }
+        
         $this->load->view('verCita',$data);
     }
 

@@ -13,3 +13,4 @@
 <strong>Doctor: </strong> $<?=$cita->nombreEmpleado?> <br/>
 <strong>Observaciones: </strong> <?=$cita->observaciones?> <br/>
 <center><a href="<?=base_url()?>index.php/personal/cita/<?=$cita->idcita?>#tabs-2"><button class="boton" id="verExpediente">Ver cita y expediente</button></a></center>
+<center><a href="<?=base_url()?><?=$eventoIcal?>"><button class="boton" id="verExpediente">Bajar para iphone</button></a></center>
