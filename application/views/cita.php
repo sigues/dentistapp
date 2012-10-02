@@ -1,4 +1,9 @@
-    <script>
+<?
+ error_reporting(E_ALL);
+?>
+<script type="text/javascript" src="<?=base_url()?>js/jquery.jqtransform.js"></script>    
+<link href="<?=base_url();?>css/jqtransform.css" rel="stylesheet" type="text/css" media="screen" />
+<script>
         $(document).ready(function() {
             $("#cerrar_<?=$idcita?>").click( function(){
                 var selected = $("#tabs").tabs('option', 'selected');
@@ -24,7 +29,7 @@
                             $("#pendienteTotal").attr("total",pendienteTotal);
                             $("#pendienteTotal").html(pendienteTotal);
                         } else {
-                            
+                            alert("Hubo un error al agregar el producto, recargue la pagina e intente de nuevo");
                         }
                     }
                 });
@@ -62,6 +67,15 @@
                   }
                 });
             });
+            
+            $(".odontograma-diente").click(function(){
+                $("#odonto1").addClass("odontograma-diente-on");
+                $("#odonto1").removeClass("odontograma-diente");
+            });
+            $(".odontograma-diente-on").click(function(){
+                $("#odonto1").addClass("odontograma-diente");
+                $("#odonto1").removeClass("odontograma-diente-on");
+            });
 
 
         });
@@ -76,6 +90,12 @@ if(isset($citas)){
 }   
 $nombrePaciente = (isset($cita->nombrePaciente)) ? $cita->nombrePaciente." ".$cita->apellidoPaterno." ".$cita->apellidoMaterno : $paciente->nombrePaciente." ".$paciente->apellidoPaterno." ".$paciente->apellidoMaterno;
 ?>
+<script type="text/javascript">
+$(function() {
+    //find all form with class jqtransform and apply the plugin
+    $("form.frm").jqTransform();
+});
+</script>
 <form action="" class="frm" onsubmit="return false;">
     <table>
         <tr class="frm-non">
@@ -179,6 +199,78 @@ $nombrePaciente = (isset($cita->nombrePaciente)) ? $cita->nombrePaciente." ".$ci
             </td>
         </tr>
         <tr class="frm-par">
+            <td colspan="2"><label for="odontograma" class="frm-label" />Odontograma:</label><br><br>
+                <div id="odontograma" class="odontograma">
+                    <table>
+                        <tr>
+                            <td>
+                                <? for($x=18;$x>=11;$x--) {?>
+                                <label class="odontograma-label" for="diente-<?=$x?>"><?=$x?>
+                                    <input type="checkbox" name="diente-<?=$x?>" id="diente-<?=$x?>" value="<?=$x?>" class="odontograma-diente" />
+                                </label>
+                                <? } ?>
+                            </td>
+                            <td>
+                                <? for($x=21;$x<=28;$x++) {?>
+                                <label class="odontograma-label" for="diente-<?=$x?>"><?=$x?>
+                                    <input type="checkbox" name="diente-<?=$x?>" id="diente-<?=$x?>" value="<?=$x?>" class="odontograma-diente" />
+                                </label>
+                                <? } ?>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="float:right">
+                                <? for($x=55;$x>=51;$x--) {?>
+                                <label class="odontograma-label" for="diente-<?=$x?>"><?=$x?>
+                                    <input type="checkbox" name="diente-<?=$x?>" id="diente-<?=$x?>" value="<?=$x?>" class="odontograma-diente" />
+                                </label>
+                                <? } ?>
+                            </td>
+                            <td>
+                                <? for($x=61;$x<=65;$x++) {?>
+                                <label class="odontograma-label" for="diente-<?=$x?>"><?=$x?>
+                                    <input type="checkbox" name="diente-<?=$x?>" id="diente-<?=$x?>" value="<?=$x?>" class="odontograma-diente" />
+                                </label>
+                                <? } ?>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="float:right">
+                                <? for($x=85;$x>=81;$x--) {?>
+                                <label class="odontograma-label" for="diente-<?=$x?>"><?=$x?>
+                                    <input type="checkbox" name="diente-<?=$x?>" id="diente-<?=$x?>" value="<?=$x?>" class="odontograma-diente" />
+                                </label>
+                                <? } ?>
+                            </td>
+                            <td>
+                                <? for($x=71;$x<=75;$x++) {?>
+                                <label class="odontograma-label" for="diente-<?=$x?>"><?=$x?>
+                                    <input type="checkbox" name="diente-<?=$x?>" id="diente-<?=$x?>" value="<?=$x?>" class="odontograma-diente" />
+                                </label>
+                                <? } ?>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <? for($x=48;$x>=41;$x--) {?>
+                                <label class="odontograma-label" for="diente-<?=$x?>"><?=$x?>
+                                    <input type="checkbox" name="diente-<?=$x?>" id="diente-<?=$x?>" value="<?=$x?>" class="odontograma-diente" />
+                                </label>
+                                <? } ?>
+                            </td>
+                            <td>
+                                <? for($x=31;$x<=38;$x++) {?>
+                                <label class="odontograma-label" for="diente-<?=$x?>"><?=$x?>
+                                    <input type="checkbox" name="diente-<?=$x?>" id="diente-<?=$x?>" value="<?=$x?>" class="odontograma-diente" />
+                                </label>
+                                <? } ?>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </td>
+        </tr>
+        <tr class="frm-non">
             <td><label for="observaciones" class="frm-label" />Observaciones:</td>
             <td><textarea rows="7" cols="50" id="observacion_<?=$idcita?>" nombre="observacion_<?=$idcita?>"></textarea></td>
         </tr>
