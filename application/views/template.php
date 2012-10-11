@@ -26,6 +26,7 @@ Released   : 20120108
 <? } ?>
 <script type='text/javascript' src='<?=base_url()?>js/jquery/jquery-1.7.1.min.js'></script>
 <script type='text/javascript' src='<?=base_url()?>js/jquery/jquery-ui-1.8.18.custom.min.js'></script>
+<script type='text/javascript' src='<?=base_url()?>js/jquery.tipTip.minified.js'></script>
 <link type="text/css" href="<?=base_url()?>css/redmond/jquery-ui-1.8.18.custom.css" rel="stylesheet" />
 <link rel="stylesheet" href="<?=base_url()?>css/colorbox.css" />
 <script src="<?=base_url()?>js/jquery.colorbox-min.js"></script>
@@ -51,7 +52,7 @@ function pideAjax(vurl){
 
   var _gaq = _gaq || [];
   _gaq.push(['_setAccount', 'UA-35336608-1']);
-  _gaq.push(['_setDomainName', 'sigden.org']);
+  _gaq.push(['_setDomainName', 'startlogic.com']);
   _gaq.push(['_trackPageview']);
 
   (function() {
