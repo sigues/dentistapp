@@ -15,7 +15,7 @@ Released   : 20120108
 <meta name="keywords" content="" />
 <meta name="description" content="" />
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<title>Clínica Dientes Chulos</title>
+<title>Centro Integral de Odontología</title>
 <link href="http://fonts.googleapis.com/css?family=Oswald" rel="stylesheet" type="text/css" />
 <link href='http://fonts.googleapis.com/css?family=Arvo' rel='stylesheet' type='text/css' />
 <link href="<?=base_url();?>css/style.css" rel="stylesheet" type="text/css" media="screen" />
@@ -69,8 +69,8 @@ function pideAjax(vurl){
 	<div id="header-wrapper">
 		<div id="header">
 			<div id="logo">
-				<h1><a href="#">Sistema Interactivo De Gestión Dental</a></h1>
-				<p>Donde lo mas importante son sus dientes</p>
+				<h1><a href="#">Centro Integral de Odontología</a></h1>
+				<p>Servicios dentales de calidad</p>
 			</div>
 		</div>
 	</div>
@@ -87,8 +87,8 @@ function pideAjax(vurl){
 !-->				<li><a href="#">Contacto</a></li>
 				<li <?=($seccion=='paciente')?' class="current_page_item"':'';?>>
 				<?=anchor(base_url().'index.php/paciente','Pacientes')?></li>
-				<li <?=($seccion=='personal')?' class="current_page_item"':'';?>>
-				<?=anchor(base_url().'index.php/personal','Personal')?></li>
+				<!--<li <?=($seccion=='personal')?' class="current_page_item"':'';?>>
+				</li>-->
 			</ul>
 		</div>
 	</div>
@@ -149,13 +149,28 @@ function pideAjax(vurl){
                                                     <li><?=anchor(base_url().'index.php/personal/logout','Cerrar Sesión')?></li>
                                                     <? } ?>
                                                     <li><?=anchor(base_url().'index.php/personal','Panel de Control')?></li>
-							<li>
+                                                    <? if($this->session->userdata("idempleado")>0){?>
+                                                        <li>
+								<h2>Menú</h2>
+								<ul>
+                                                                    <li><?=anchor(base_url().'index.php/personal/agenda','Agenda')?></li>
+                                                                    <li><?=anchor(base_url().'index.php/personal/altaTratamientos','Nuevo tratamiento')?></li>
+                                                                    <li><?=anchor(base_url().'index.php/personal/seguimientoTratamiento','Seguimiento de tratamiento')?></li>
+                                                                    <li><?=anchor(base_url().'index.php/personal/altaPacientes','Administrar pacientes')?></li>
+                                                                    <li><?=anchor(base_url().'index.php/personal/altaEmpleados','Administrar empleados')?></li>
+                                                                    <li><?=anchor(base_url().'index.php/personal/procedimientos','Administrar procedimientos')?></li>
+                                                                    <li><?=anchor(base_url().'index.php/personal/productos','Administrar productos')?></li>
+								</ul>
+							</li>
+
+                                                    <? } ?>
+<!--							<li>
 								<h2>SIGDEN</h2>
 								<p>
                                                                     <strong>Sistema Interactivo De Gestión Dental</strong><br>
                                                                     Este sistema le servirá para administrar todo lo relacionado con su consultorio.
                                                                 </p>
-							</li>
+							</li>-->
 							<!--<li>
 								<h2>Categories</h2>
 								<ul>
@@ -201,7 +216,7 @@ function pideAjax(vurl){
 	<!-- end #page -->
 </div>
 <div id="footer">
-	<p>Copyright (c) 2012 Sitename.com. All rights reserved. Design by <a href="http://www.freecsstemplates.org/"> CSS Templates</a>.</p>
+	<p>Copyright (c) <?=date("Y")?> <a href="http://www.dentalbiointegral.com">www.dentalbiointegral.com</a>. Derechos reservados. Desarrollado por <a href="http://www.salvadorvillegas.com/"> Salvador Villegas</a>. <?=anchor(base_url()."index.php/personal","Personal")?></p>
 </div>
 <!-- end #footer -->
 </body>

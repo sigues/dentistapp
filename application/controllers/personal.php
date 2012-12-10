@@ -8,10 +8,10 @@ class Personal extends CI_Controller {
     public function index()
     {
         $usuario = $this->session->userdata("idempleado");
-        //if(isset($_POST["entrar"])){
-        if(!$usuario){
-            $this->usuario = "recep@dentista.com";//$_POST["usuario"];
-            $this->contrasena = "abc123";//$_POST["contrasena"];
+        if(isset($_POST["entrar"])){
+        //if(!$usuario){
+            $this->usuario = $_POST["usuario"];//"recep@dentista.com";//
+            $this->contrasena = $_POST["contrasena"];//"abc123";//
             $login = $this->login();
             if ($login === TRUE){
                 $data["error"][0] = '';
@@ -64,7 +64,7 @@ class Personal extends CI_Controller {
         $data["titulo"][0] = "Panel de Control de ".$puesto;
         $data["subtitulo"][0] = "Desde este panel podrá administrar sus opciones en el sistema";
         if($puesto == 'dentista'){
-            $data["contenido"][0] = $this->load->view('controlPanelDentista','',true);
+            $data["contenido"][0] = $this->load->view('controlPanelRecepcionista','',true);
         }elseif($puesto == 'recepcionista'){
             $data["contenido"][0] = $this->load->view('controlPanelRecepcionista','',true);
         }
@@ -388,26 +388,26 @@ class Personal extends CI_Controller {
         $this->db->join("procedimiento","procedimiento.idprocedimiento = cita.procedimiento_idprocedimiento");
         $this->db->where("cita.idcita",$data["id"]);
         $data["cita"] = $this->db->get()->result();
-        
-        $this->load->library("ical");
         $cita = $data["cita"][0];
+        
+/*        $this->load->library("ical");
         $this->ical->setEventStartTime($cita->horaInicio);
         $this->ical->setEventEndTime($cita->horaFin);
         $this->ical->setEventStartDate($cita->fecha);
         $this->ical->setEventTitle("Cita con paciente ".$cita->nombreEmpleado);
         $this->ical->setURL(base_url()."index.php/personal/cita/".$cita->idcita);
-        $this->ical->setNotes($cita->observaciones);
-        $data["datosEventoIcal"]=$this->ical->createEvent();
+        $this->ical->setNotes($cita->observaciones);*/
+        $data["datosEventoIcal"]="";//$this->ical->createEvent();
         
         $this->load->helper('file');
-        if ( ! write_file('ical/cita'.$cita->idcita.'.ics', $data["datosEventoIcal"],'w+'))
+        /*if ( ! write_file('ical/cita'.$cita->idcita.'.ics', $data["datosEventoIcal"],'w+'))
         {
             echo 'No se pudo exportar para iphone';
         }
         else
-        {
-            $data["eventoIcal"] = 'ical/cita'.$cita->idcita.'.ics';
-        }
+        {*/
+            $data["eventoIcal"] = "";//'ical/cita'.$cita->idcita.'.ics';
+        //}
         
         $this->load->view('verCita',$data);
     }
@@ -1074,7 +1074,7 @@ class Personal extends CI_Controller {
         $data["titulo"][0] = "<div id='tituloAltaProducto'>Alta De Productos</div>";
 	$data["subtitulo"][0] = "Desde aquí podrá agregar los productos que se pueden realizar en el hospital";
 	$data["contenido"][0] = $this->load->view('altaProductos',$data,true);
-	$data["titulo"][1] = "Reporte De Prodcutos";
+	$data["titulo"][1] = "Reporte De Productos";
 	$data["subtitulo"][1] = "Ver, Editar y Eliminar Productos";
 	$data["contenido"][1] = "<div id='listadoProductos'></div>";//$this->load->view('reporteProcedimientos',$data,true);
         $data["seccion"]="personal";
@@ -1086,7 +1086,6 @@ class Personal extends CI_Controller {
         $this->db->where("activo","si");
         $data["productos"] = $this->db->get("producto")->result();
         $this->load->view("listadoProductos", $data);
-        echo "aquí andamos y no nos vamos";
     }
     
     public function altaProducto(){

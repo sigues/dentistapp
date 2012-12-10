@@ -122,14 +122,15 @@ $(function() {
             <td>
                 <select name="productosActivos_<?=$idcita?>" id="productosActivos_<?=$idcita?>">
                     <option> - Seleccionar - </option>
-                    <? foreach($productosActivos as $prodActivo) { 
+                    <? $productosInput="";
+                    foreach($productosActivos as $prodActivo) {
                         $productosInput .= " prod".$prodActivo->idproducto."='".$prodActivo->nombre."' ";
                     ?>
                         <option value="<?=$prodActivo->idproducto?>"><?=$prodActivo->nombre." ($".$prodActivo->precio.")"?></option>
                     <? } ?>
                 </select> 
                 <input type="hidden" name="nombreProductos" id="nombreProductos" <?=$productosInput?> />
-                $<input type="text" name="costoProducto_<?=$idcita?>" id="costoProducto_<?=$idcita?>" size="3" /> <button name="guardaProducto_<?=$idcita?>" id="guardaProducto_<?=$idcita?>">Agregar</button>
+                $<input type="text" name="costoProducto_<?=$idcita?>" id="costoProducto_<?=$idcita?>" size="3" /> <button name="guardaProducto_<?=$idcita?>" id="guardaProducto_<?=$idcita?>" class="boton">Agregar</button>
                 <div id="productosCita">
                     <?
                     $costoProductos=0;
@@ -198,7 +199,7 @@ $(function() {
                 <? } ?>
             </td>
         </tr>
-        <tr class="frm-par">
+<!--        <tr class="frm-par">
             <td colspan="2"><label for="odontograma" class="frm-label" />Odontograma:</label><br><br>
                 <div id="odontograma" class="odontograma">
                     <table>
@@ -269,8 +270,8 @@ $(function() {
                     </table>
                 </div>
             </td>
-        </tr>
-        <tr class="frm-non">
+        </tr> -->
+        <tr class="frm-par">
             <td><label for="observaciones" class="frm-label" />Observaciones:</td>
             <td><textarea rows="7" cols="50" id="observacion_<?=$idcita?>" nombre="observacion_<?=$idcita?>"></textarea></td>
         </tr>

@@ -57,7 +57,7 @@
 	                	var longitud = datos.length-1;
 	                	for(var x=1;x<=longitud;x++){
 	                		if(datos[x]=="nombre"){
-	                			$('#respuesta').append("<br>Ya existe un procedimiento con el nombre especificado. \""+nombre+"\"");
+	                			$('#respuesta').append("<br>Ya existe un producto con el nombre especificado. \""+nombre+"\"");
 	                		}
 	                		$('#'+datos[x]).css("border","solid thin #ff566f");
 	                	}

@@ -43,13 +43,20 @@ $total=0;
             <? if($costo-$total > 0){ ?>
                 Restante: $<?=number_format($costo-$total,2,".",",");?>
             <? } else { ?>
-                <div style="width:80px;" class="ui-widget icon-collection">
+                <div style="width:200px;" class="ui-widget icon-collection">
                     <a href="<?=base_url()."index.php/personal/imprimirRecibo/".$cita?>" target="_blank">
                         <div class="ui-state-default ui-corner-all boton boton20">
                             <span class="ui-icon ui-icon-print" <!--onclick="generarRecibo(<?=$cita?>)"!--> alt="Generar Recibo">Generar Recibo</span>
                         </div>
-                    </a>
-                </div> Imprimir Recibo
+                    </a> Imprimir Recibo
+                </div> 
+                <div style="width:200px;" class="ui-widget icon-collection">
+                    <a href="<?=base_url()."index.php/personal/imprimirRecibo/".$cita?>" target="_blank">
+                        <div class="ui-state-default ui-corner-all boton boton20">
+                            <span class="ui-icon ui-icon-mail-closed" <!--onclick="generarRecibo(<?=$cita?>)"!--> alt="Generar Recibo">Generar Recibo</span>
+                        </div>
+                    </a> Enviar por correo
+                </div> 
             <? } ?>
             </td>
             <td colspan="3">&nbsp;</td>

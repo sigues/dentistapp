@@ -33,7 +33,7 @@ function editarProducto(producto){
 	  	$("#precio").val(data.precio);
 	  	$("#descripcion").val(data.descripcion);
                 $("#tipo").val("editar");
-	  	$('#cancelar').html("<span onclick='altaProcedimiento.reset();\n\
+	  	$('#cancelar').html("<span onclick='altaProducto.reset();\n\
                                                   $(\"#cancelar\").html(\"\");\n\
                                                   $(\"#idprocedimiento\").val(\"\");\n\
                                                   $(\"#tipo\").val(\"\");' class='boton'>Cancelar</span>");
