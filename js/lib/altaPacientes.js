@@ -26,10 +26,6 @@
                                     minlength : 3,
                                     maxlength : 60
                             },
-                            correo: {
-                                    required : true,
-                                    email : true
-			  	},
 			    fechaNacimiento : {
 			    	required : true,
 			    	date : true

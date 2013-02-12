@@ -198,7 +198,7 @@ class Personal extends CI_Controller {
             $correoRepetido=0;
                 
             if($tipo != "editar"){
-                $this->form_validation->set_rules('correo', 'Correo Electrónico', 'trim|required|valid_email|is_unique[paciente.correo]');
+                $this->form_validation->set_rules('correo', 'Correo Electrónico', 'trim|valid_email|is_unique[paciente.correo]');
             } else {
                 $pacientes = $this->db->get_where("paciente",array("correo"=>trim($_POST["correo"]),
                                                             "idpaciente !="=>$_POST["idpaciente"]));
