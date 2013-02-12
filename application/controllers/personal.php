@@ -205,7 +205,7 @@ class Personal extends CI_Controller {
                 foreach($pacientes->result() as $paciente){
                 	    $correoRepetido++;
                 }
-                $this->form_validation->set_rules('correo', 'Correo Electrónico', 'trim|required|valid_email');
+                $this->form_validation->set_rules('correo', 'Correo Electrónico', 'trim|valid_email');
             }
 
             $this->form_validation->set_rules('nombre', 'Nombre', 'trim|required|min_length[3]|max_length[45]');
