@@ -30,10 +30,10 @@ var mygallery=new simpleGallery({
 	wrapperid: "simplegallery1", //ID of main gallery container,
 	dimensions: [940, 250], //width/height of gallery in pixels. Should reflect dimensions of the images exactly
 	imagearray: [
-		["http://i26.tinypic.com/11l7ls0.jpg", "http://en.wikipedia.org/wiki/Swimming_pool", "_new", "There's nothing like a nice swim in the Summer."],
-		["http://i29.tinypic.com/xp3hns.jpg", "http://en.wikipedia.org/wiki/Cave", "", ""],
-		["http://i30.tinypic.com/531q3n.jpg", "", "", "Eat your fruits, it's good for you!"],
-		["http://i31.tinypic.com/119w28m.jpg", "", "", ""]
+		["http://placekitten.com/940/250", "http://en.wikipedia.org/wiki/Swimming_pool", "_new", "There's nothing like a nice swim in the Summer."],
+		["http://placekitten.com/940/250", "http://en.wikipedia.org/wiki/Cave", "", ""],
+		["http://placekitten.com/940/250", "", "", "Eat your fruits, it's good for you!"],
+		["http://placekitten.com/940/250", "", "", ""]
 	],
 	autoplay: [true, 1500, 2], //[auto_play_boolean, delay_btw_slide_millisec, cycles_before_stopping_int]
 	persist: false, //remember last viewed slide and recall within same session?
